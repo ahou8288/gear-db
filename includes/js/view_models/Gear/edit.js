@@ -3,10 +3,18 @@
 var ViewModel = function(data){
 	var self = this;
 	self.initialData = data;
-	self.gearFields = new RecordViewModel(data['fields_list']);
+	self.fields_list = ko.observableArray();
 	
 	self.init = function() {
+		self.generateArrays();
 	};
+
+
+	self.generateArrays = function(){
+		for(var index in data['fields_list']){
+			self.fields_list.push(new RecordViewModel(data['fields_list']));
+		}
+	}
 }
 
 var RecordViewModel = function(data){
