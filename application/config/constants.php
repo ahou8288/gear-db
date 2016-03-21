@@ -94,7 +94,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |
 */
 
-define('APP_NAME', 'Pacific Highway');
+define('APP_NAME', 'Gear Database');
 define('APP_VERSION', '1.0.0');
 
 
