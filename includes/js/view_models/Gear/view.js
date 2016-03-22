@@ -12,8 +12,9 @@ var ViewModel = function(data){
 	};
 
 	self.generateArrays = function(){
-		for(var index in data['data']['gear']){
-			self.gearArray.push(new RecordViewModel(data['data']['gear'][index]));
+		for(var index in data['gear']){
+			self.gearArray.push(new RecordViewModel(data['gear'][index]));
+		}
 	}
 
 
@@ -21,22 +22,30 @@ var ViewModel = function(data){
 		self.table = $("#dataTable").DataTable({
 			data: self.gearArray(),
 	        columns: [
-	            
-		        { 	"data": function(row){
-		        		return row.Project_Record['Design_Lot_ID'];
+	            { 	"data": function(row){
+		        		return row['id'];
 	            	}, 
-		            title: "Lot ID" 
+		            title: "ID" 
 		        },
 		        { 	"data": function(row){
-		        		return row.Project_Record['Description'];
+		        		return row['age'];
 	            	}, 
-		            title: "Description" 
+		            title: "Age" 
+		        },
+		        { 	"data": function(row){
+		        		return row['name'];
+	            	}, 
+		            title: "Name" 
+		        },
+		        { 	"data": function(row){
+		        		return row['type'];
+	            	}, 
+		            title: "Type" 
 		        }
 	        ], 
 			stateSave: true,
 			dom: '<"left"l>fBrtip',
 			buttons: [
-	            'colvis', 'excel'
 	        ],
 			fixedHeader: true
 	        // "pagingType": "full_numbers"
@@ -62,4 +71,3 @@ var RecordViewModel = function(data){
 	}
 
 }
-

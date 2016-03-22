@@ -10,8 +10,7 @@
 		<!-- <link type="text/css" rel="<?= is_dev_server() && !is_mobile() ? 'stylesheet/less' : 'stylesheet' ?>" href="<?= base_url('includes/' . (is_dev_server() && !is_mobile() ? 'css/custom-theme/custom-bootstrap.less' : 'css/styles.css')) ?>" />-->
 		<link type="text/css" rel="stylesheet" href="<?= base_url('includes/css/styles.css') ?>" />
 		<!-- <link type="text/css" rel="stylesheet" href="<?= base_url('includes/css/datatables.min.css') ?>" />  -->
-		<!-- <link type="text/css" rel="stylesheet" href="<?= base_url('includes/datatables/tableTools.css') ?>" /> -->
-
+		<!-- <link type="text/css" rel="stylesheet" href="<?= base_url('includes/datatables/tableTools.') ?>" /> -->
 		<link type="text/css" rel="stylesheet" href="<?= base_url('includes/Datatables/DataTables-1.10.10/css/dataTables.bootstrap.min.css') ?>" />
 		<link type="text/css" rel="stylesheet" href="<?= base_url('includes/Datatables/Buttons-1.1.0/css/buttons.bootstrap.min.css') ?>" />
 		<link type="text/css" rel="stylesheet" href="<?= base_url('includes/Datatables/FixedHeader-3.1.0/css/fixedHeader.bootstrap.min.css') ?>" />
@@ -62,7 +61,6 @@
 		<div class='bg-layer-1'>
 			<div class="page-head">
 				<div class="nav-column">
-					<a href='<?= site_url() ?>'><img width='300' height='80' src='<?= base_url('includes/images/theme/opus-logo-medium.png') ?>' /></a>
 				</div>
 				<div class="content-column">
 					<h1 ><?= APP_NAME ?></h1>

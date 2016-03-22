@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Gear extends CI_Controller {
-
 	public function __construct()
 	{
         parent::__construct();
@@ -16,7 +15,14 @@ class Gear extends CI_Controller {
 	{
 		$output['data']['gear']= $this->gear_model->get_stuff();
 		// dbg($output);
-        // $this->load->view('welcome_message');
         render('gear/view',$output);
+	}
+
+	public function edit()
+	{
+		// $output['data']['gear']= $this->gear_model->get_stuff();
+		$output['data']['fields_list']=array('age','name','type');
+		// dbg($output);
+        render('gear/edit',$output);
 	}
 }

@@ -26,7 +26,7 @@ function generate_navigation($active_link = 'project') {
 			'icon' => 'glyphicon glyphicon-time',
 			'attr' => '', 
 			'sub-links' => array(
-			'New' => array('url' => 'Gear/create', 'attr' => '', 'icon' => 'glyphicon glyphicon-list-alt'),
+			'New' => array('url' => 'Gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-list-alt'),
 			//'Bill' => array('url' => 'Timesheets/bill', 'attr' => '', 'icon' => 'glyphicon glyphicon-usd'),
 			)
 		);
