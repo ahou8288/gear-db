@@ -13,4 +13,13 @@ class gear_model extends CI_Model {
         $query = $this->db->get('gear');
         return $query->result();
     }
+
+    public function save_new_asset($data){
+        $this->db->insert('gear',$data);
+    }
+
+    public function edit_asset($data, $id){
+        $this->db->where('ID',$id);
+        $this->db->update('gear',$data);
+    }
 }

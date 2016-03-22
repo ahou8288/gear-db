@@ -21,8 +21,24 @@ class Gear extends CI_Controller {
 	public function edit()
 	{
 		// $output['data']['gear']= $this->gear_model->get_stuff();
-		$output['data']['fields_list']=array('age','name','type');
+		$output['data']['fields_list']=array(
+			array('Field'=>'age','DisplayName'=>'age'),
+			array('Field'=>'name','DisplayName'=>'name'),
+			array('Field'=>'type','DisplayName'=>'type'));
 		// dbg($output);
         render('gear/edit',$output);
+	}
+
+	public function save($id=null){
+		//TODO data validation
+		if($id){
+			// save the edited entry
+			$this->gear_model->edit_asset($_POST,$id);
+		} else {
+			// save the new entry
+			unset($_POST[0]); //This randomly gets added and it's easier to fix like this :)
+			$this->gear_model->save_new_asset($_POST);
+		}
+		redirect('gear/view');
 	}
 }

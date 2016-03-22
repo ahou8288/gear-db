@@ -3,17 +3,17 @@
 var ViewModel = function(data){
 	var self = this;
 	self.initialData = data;
-	self.fields_list = ko.observableArray();
 	
+	self.fields_list = '';
+
 	self.init = function() {
+		self.fields_list = ko.observableArray();
 		self.generateArrays();
 	};
 
 
 	self.generateArrays = function(){
-		for(var index in data['fields_list']){
-			self.fields_list.push(new RecordViewModel(data['fields_list']));
-		}
+			self.fields_list=new RecordViewModel(data['fields_list']);
 	}
 }
 
