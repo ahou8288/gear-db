@@ -18,7 +18,8 @@
 			selectedOptions:selectedItems,
 			optionsText: function(item) {
 				return item.name+' - '+item.age
-			}"> </select>
+			}">
+		</select>
 		<button class="btn btn-default" data-bind="click: removeSelected, enable: selectedItems().length > 0">Remove</button>
 	</div>
 
@@ -26,7 +27,7 @@
 	<input type="hidden" name="person_borrowing" data-bind="value: ko.toJSON(selectedPerson)" />
 
 	<div class="form-group">
-		<input type="submit" class="btn btn-default">
+		<input type="submit" class="btn btn-default" data-bind="enable: gear_list().length>0 && selectedPerson() != undefined">
 	</div>
 </form>
 
