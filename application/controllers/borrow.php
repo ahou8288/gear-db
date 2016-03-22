@@ -22,8 +22,15 @@ class borrow extends CI_Controller {
 	public function save($id=null){
 		// dbg($_POST);
 		$postData=json_decode($_POST['gear_selected']);
+
+		// get borrow id
+		// get person
+		// get deposit (now())
+		// get date
 		dbg($postData);
 		//TODO data validation
+		//EG if empty
+
 		if($id){
 			// save the edited entry
 			$this->gear_model->edit_asset($_POST,$id);
