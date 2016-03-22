@@ -5,12 +5,16 @@ var ViewModel = function(data){
 	self.initialData = data;
 	self.gearArray = ko.observableArray();
 	self.gear_list= ko.observableArray();
+
     self.selectedItems = ko.observableArray([]);
-    self.postJson=ko.observable("");
 	
+    self.people=ko.observableArray();
+    self.selectedPerson=ko.observable();
+
 	self.init = function() {
 		self.generateArrays();
 		self.refreshDatatable();
+		self.refreshDatatable2();
 	};
  
     self.removeSelected = function () {
@@ -21,6 +25,9 @@ var ViewModel = function(data){
 	self.generateArrays = function(){
 		for(var index in data['gear']){
 			self.gearArray.push(new RecordViewModel(data['gear'][index]));
+		}
+		for(var index in data['people']){
+			self.people.push(new RecordViewModel(data['people'][index]));
 		}
 	}
 
@@ -63,6 +70,37 @@ var ViewModel = function(data){
 	            self.gear_list.push(self.itemToAdd());
 		});
 	}
+
+
+	self.refreshDatatable2 = function() {
+		self.table2 = $("#personTable").DataTable({
+			data: self.people(),
+	        columns: [
+	            { 	"data": function(row){
+		        		return row['id'];
+	            	}, 
+		            title: "ID" 
+		        },
+		        { 	"data": function(row){
+		        		return row['name'];
+	            	}, 
+		            title: "Name" 
+		        }
+	        ], 
+			stateSave: true,
+			dom: '<"left"l>fBrtip',
+			buttons: [],
+			fixedHeader: true
+		});
+		$("#personTable tbody tr").on('click',function(event) {
+	        $("#personTable tbody tr").removeClass('row_selected');        
+	        $(this).addClass('row_selected');
+
+			self.selectedPerson(self.table2.row( this ).data());
+	    });
+	}
+
+
 }
 
 var RecordViewModel = function(data){

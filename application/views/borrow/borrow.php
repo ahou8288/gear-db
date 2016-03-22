@@ -1,5 +1,11 @@
 <h3>Borrow Gear</h3>
 
+<div class="col-lg-12">
+	<h5>Person Borrowing Gear</h5>
+	<table id='personTable' class='table'></table>
+</div>
+<br/>
+
 <h5>Select your gear</h5>
 <table id='dataTable' class='table'></table>
 <br/>
@@ -17,6 +23,7 @@
 	</div>
 
 	<input type="hidden" name="gear_selected" data-bind="value: ko.toJSON(gear_list)" />
+	<input type="hidden" name="person_borrowing" data-bind="value: ko.toJSON(selectedPerson)" />
 
 	<div class="form-group">
 		<input type="submit" class="btn btn-default">
@@ -31,3 +38,7 @@
 		model.init();
 	})
 </script>
+
+<style type="text/css">
+	tr.row_selected td{background-color:#ccccff !important;}
+</style>
