@@ -23,14 +23,18 @@ function generate_navigation($active_link = 'project') {
 
 		$links['Gear'] = array(
 			'url' => array('url' => 'Gear/view', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-time',
+			'icon' => 'glyphicon glyphicon-th-list',
 			'attr' => '', 
 			'sub-links' => array(
-			'New' => array('url' => 'Gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-list-alt'),
-			//'Bill' => array('url' => 'Timesheets/bill', 'attr' => '', 'icon' => 'glyphicon glyphicon-usd'),
+			'New' => array('url' => 'Gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
 			)
 		);
-
+		$links['Borrow Gear'] = array(
+			'url' => array('url' => 'borrow/borrow', 'attr' => ''),
+			'icon' => 'glyphicon glyphicon-gift',
+			'attr' => '', 
+			'sub-links' => array()
+		);
 			/*$links['Progress'] = array(
 			'url' => array('url' => 'Progress/view', 'attr' => ''),
 			'icon' => 'glyphicon glyphicon-tasks',
