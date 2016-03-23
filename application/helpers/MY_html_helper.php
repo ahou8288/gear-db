@@ -33,7 +33,9 @@ function generate_navigation($active_link = 'project') {
 			'url' => array('url' => 'borrow/borrow', 'attr' => ''),
 			'icon' => 'glyphicon glyphicon-gift',
 			'attr' => '', 
-			'sub-links' => array()
+			'sub-links' => array(
+			'view' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			)
 		);
 			/*$links['Progress'] = array(
 			'url' => array('url' => 'Progress/view', 'attr' => ''),

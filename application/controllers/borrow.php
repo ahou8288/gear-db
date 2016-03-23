@@ -24,14 +24,12 @@ class borrow extends CI_Controller {
 	}
 
 	public function save($id=null){
-		// dbg($_POST);
+
 		$postData['gear']=json_decode($_POST['gear_selected'],TRUE);
 		$postData['person']=json_decode($_POST['person_borrowing'],TRUE);
-// dbg($postData);
 		$borrow_insert_data=array();
 
 		foreach($postData['gear'] as $val){
-			// dbg($val);
 			$temp_row=array(
 				'gear_id'		=>$val['id'],
 				'person_id'		=>$postData['person']['id'],
@@ -43,5 +41,13 @@ class borrow extends CI_Controller {
 		$this->borrow_model->insert($borrow_insert_data);
 
 		redirect('gear/view');
+	}
+
+	public function view()
+	{
+		$output['data']['borrow']= $this->borrow_model->get_stuff();
+		// dbg($output);
+		$output['data']['Fields']=array(array('Fields'=>'name','DisplayName'=>'Name'));
+        render('borrow/view',$output);
 	}
 }

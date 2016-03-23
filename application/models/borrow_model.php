@@ -25,6 +25,15 @@ class borrow_model extends CI_Model {
         }
     }
 
+    function get_stuff()
+    {
+        $this->db->select('borrow.*, gear.name as gear_name, people.name');
+        $this->db->join('gear','gear.id = borrow.gear_id');
+        $this->db->join('people','people.id = borrow.person_id');
+        $query = $this->db->get('borrow');
+        return $query->result();
+    }
+
     // public function edit_asset($data, $id){
     //     $this->db->where('ID',$id);
     //     $this->db->update('gear',$data);
