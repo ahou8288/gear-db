@@ -5,10 +5,12 @@ class borrow extends CI_Controller {
 	public function __construct()
 	{
         parent::__construct();
-		// echo("test");
 		$this->load->helper('application_helper');
+
 		$this->load->model('gear_model');
 		$this->load->model('people_model');
+		$this->load->model('borrow_model');
+
         $this->load->view('templates/header');
         $this->load->view('templates/footer');
 	}
@@ -22,25 +24,24 @@ class borrow extends CI_Controller {
 	}
 
 	public function save($id=null){
-		dbg($_POST);
-		$postData=json_decode($_POST['gear_selected']);
+		// dbg($_POST);
+		$postData['gear']=json_decode($_POST['gear_selected'],TRUE);
+		$postData['person']=json_decode($_POST['person_borrowing'],TRUE);
+// dbg($postData);
+		$borrow_insert_data=array();
 
-		// get borrow id
-		// get person
-		// get deposit (now())
-		// get date
-		dbg($postData);
-		//TODO data validation
-		//EG if empty
-
-		if($id){
-			// save the edited entry
-			$this->gear_model->edit_asset($_POST,$id);
-		} else {
-			// save the new entry
-			unset($_POST[0]); //This randomly gets added and it's easier to fix like this :)
-			$this->gear_model->save_new_asset($_POST);
+		foreach($postData['gear'] as $val){
+			// dbg($val);
+			$temp_row=array(
+				'gear_id'		=>$val['id'],
+				'person_id'		=>$postData['person']['id'],
+				'deposit'		=>'$20',
+				'returned'		=>0);
+			array_push($borrow_insert_data,$temp_row);
 		}
+
+		$this->borrow_model->insert($borrow_insert_data);
+
 		redirect('gear/view');
 	}
 }
