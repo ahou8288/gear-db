@@ -3,7 +3,7 @@
 var ViewModel = function(data){
 	var self = this;
 	self.initialData = data;
-	self.borrowData = ko.observableArray();
+	self.rowData = ko.observableArray();
 	self.fieldsList = ko.observableArray();
 	
 	self.init = function() {
@@ -14,8 +14,8 @@ var ViewModel = function(data){
 	};
 
 	self.generateArrays = function(){
-		for(var index in data['borrow']){
-			self.borrowData.push(new RecordViewModel(data['borrow'][index]));
+		for(var index in data['rows']){
+			self.rowData.push(new RecordViewModel(data['rows'][index]));
 		}
 		for(var index in data['Fields']){
 			self.fieldsList.push(new RecordViewModel(data['Fields'][index]));
@@ -42,9 +42,9 @@ var ViewModel = function(data){
 		}
 
 		self.table = $("#dataTable").DataTable({
-			data: self.borrowData(),
+			data: self.rowData(),
 			columns: columnsArr,
-			stateSave: true,
+			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: ['colvis'],
 			fixedHeader: true
@@ -52,7 +52,7 @@ var ViewModel = function(data){
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
-			window.document.location = base_url+'Register/edit/'+self.table.row( this ).data().ID();
+			// window.document.location = base_url+'borrow/return/'+self.table.row( this ).data().id;
 		});
 	}
 

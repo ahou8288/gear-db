@@ -56,7 +56,7 @@ var ViewModel = function(data){
 		            title: "Type" 
 		        }
 	        ], 
-			stateSave: true,
+			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: [
 	        ],
@@ -87,7 +87,7 @@ var ViewModel = function(data){
 		            title: "Name" 
 		        }
 	        ], 
-			stateSave: true,
+			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: [],
 			fixedHeader: true
