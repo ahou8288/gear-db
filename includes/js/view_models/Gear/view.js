@@ -41,7 +41,12 @@ var ViewModel = function(data){
 		        		return row['type'];
 	            	}, 
 		            title: "Type" 
-		        }
+		        }/*,
+		        { 	"data": function(row){
+		        		return row['returned'];
+	            	}, 
+		            title: "Returned" 
+		        }*/
 	        ], 
 			stateSave: true,
 			dom: '<"left"l>fBrtip',

@@ -10,7 +10,10 @@ class gear_model extends CI_Model {
     
     function get_stuff()
     {
-        $query = $this->db->get('gear');
+        $this->db->from('gear');
+        // $this->db->select('gear.*,borrow.returned');
+        // $this->db->join('borrow','borrow.gear_id = gear.id');
+        $query = $this->db->get();
         return $query->result();
     }
 
