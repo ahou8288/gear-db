@@ -29,11 +29,13 @@ class borrow extends CI_Controller {
 		$postData['person']=json_decode($_POST['person_borrowing'],TRUE);
 		$borrow_insert_data=array();
 
+		dbg($_POST);
 		foreach($postData['gear'] as $val){
 			$temp_row=array(
 				'gear_id'		=>$val['id'],
 				'person_id'		=>$postData['person']['id'],
-				'deposit'		=>'$20',
+				'deposit'		=>$_POST['deposit'],
+				// 'comment'		=>$_POST['comments'],
 				'returned'		=>0);
 			array_push($borrow_insert_data,$temp_row);
 		}
