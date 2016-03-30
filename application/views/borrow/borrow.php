@@ -25,7 +25,13 @@
 
 	<input type="hidden" name="gear_selected" data-bind="value: ko.toJSON(gear_list)" />
 	<input type="hidden" name="person_borrowing" data-bind="value: ko.toJSON(selectedPerson)" />
+	
+	<h4>Deposit</h4>
+	<input type="text" class="form-control" name="deposit">
 
+	<h4>Comments</h4>
+	<input type="text" class="form-control" name="commments"/>
+	
 	<div class="form-group">
 		<input type="submit" class="btn btn-default" data-bind="enable: gear_list().length>0 && selectedPerson() != undefined">
 	</div>
