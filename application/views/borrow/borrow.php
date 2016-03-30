@@ -6,35 +6,44 @@
 </div>
 <br/>
 
-<h5>Select your gear</h5>
-<table id='dataTable' class='table'></table>
+<div class="col-lg-12">
+	<h5>Select your gear</h5>
+	<table id='dataTable' class='table'></table>
+</div>
 <br/>
 
 <form action='../borrow/save' method="post">
 	<div class="form-group col-lg-12">
 		<label for="sel1">Gear selected;</label>
-		<select class="form-control" multiple="multiple" id="sel1" height="8" data-bind="
-			options:gear_list,
-			selectedOptions:selectedItems,
-			optionsText: function(item) {
-				return item.name+' - '+item.age
-			}">
-		</select>
-		<button class="btn btn-default" data-bind="click: removeSelected, enable: selectedItems().length > 0">Remove</button>
+		<div class="row">
+			<div class="col-lg-8">
+				<select class="form-control" multiple="multiple" id="sel1" height="8" data-bind="
+					options:gear_list,
+					selectedOptions:selectedItems,
+					optionsText: function(item) {
+						return item.name+' - '+item.age
+					}">
+				</select>
+			</div>
+			<div class="col-lg-4">
+				<button class="btn btn-default" data-bind="click: removeSelected, enable: selectedItems().length > 0">Remove</button>
+			</div>
+		</div>
+
+		<input type="hidden" name="gear_selected" data-bind="value: ko.toJSON(gear_list)" />
+		<input type="hidden" name="person_borrowing" data-bind="value: ko.toJSON(selectedPerson)" />
+		
+		<label class="control-label" for="deposit">Deposit</label>
+		<input type="text" class="form-control" name="deposit" id="deposit">
+
+		<label class="control-label" for="comments">Comments</label>
+		<input type="text" class="form-control" name="comments" id="comments" />
+
+		<div class="form-group">
+			<input type="submit" class="btn btn-default" data-bind="enable: gear_list().length>0 && selectedPerson() != undefined">
+		</div>
 	</div>
 
-	<input type="hidden" name="gear_selected" data-bind="value: ko.toJSON(gear_list)" />
-	<input type="hidden" name="person_borrowing" data-bind="value: ko.toJSON(selectedPerson)" />
-	
-	<h4>Deposit</h4>
-	<input type="text" class="form-control" name="deposit">
-
-	<h4>Comments</h4>
-	<input type="text" class="form-control" name="commments"/>
-	
-	<div class="form-group">
-		<input type="submit" class="btn btn-default" data-bind="enable: gear_list().length>0 && selectedPerson() != undefined">
-	</div>
 </form>
 
 <script>
