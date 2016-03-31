@@ -34,8 +34,12 @@ class borrow_model extends CI_Model {
         return $query->result();
     }
 
-    // public function edit_asset($data, $id){
-    //     $this->db->where('ID',$id);
-    //     $this->db->update('gear',$data);
-    // }
+    public function borrow_group_gear($id){
+        $this->db->select('gear.*, borrow.*');
+        $this->db->from('borrow');
+        $this->db->where('borrow.borrow_group_id',$id);
+        $this->db->join('gear','borrow.gear_id=gear.id');
+        $query=$this->db->get();
+        return $query->result_array();
+    }
 }
