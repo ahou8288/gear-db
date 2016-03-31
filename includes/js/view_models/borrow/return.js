@@ -62,8 +62,8 @@ var ViewModel = function(data){
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
-	        $("#personTable tbody tr").removeClass('row_selected');        
-	        $(this).addClass('row_selected');
+	        // $("#personTable tbody tr").toggleClass('row_selected');        
+	        $(this).toggleClass('row_selected');
 
 		});
 	}
