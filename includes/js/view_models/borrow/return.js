@@ -5,8 +5,7 @@ var ViewModel = function(data){
 	self.initialData = data;
 	self.gearArray = ko.observableArray();
 	self.returnedGear = ko.observableArray();
-
-	// self.returningGear=array();
+	self.selectedGear = ko.observableArray();
 	
 	self.init = function() {
 		// console.log(initialData);
@@ -61,10 +60,12 @@ var ViewModel = function(data){
 	        // "pagingType": "full_numbers"
 		});
 
-		$("#dataTable").on('click', 'tbody tr', function(e){
-	        // $("#personTable tbody tr").toggleClass('row_selected');        
+		$("#dataTable").on('click', 'tbody tr', function(e){      
 	        $(this).toggleClass('row_selected');
-
+	        self.clickedItem=ko.observable(self.table.row( this ).data());
+	        if ((self.clickedItem() != "") && (self.selectedGear.indexOf(self.clickedItem()) < 0)){
+	        	self.selectedGear.push(self.clickedItem());
+	        }
 		});
 	}
 
