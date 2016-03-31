@@ -60,4 +60,13 @@ class borrow extends CI_Controller {
 			);
         render('borrow/view',$output);
 	}
+
+	public function gear_return($id=null){
+		dbg('test');
+		if ($id){
+			$output['data']['borrow']=$this->borrow_model->get_borrow_group($borrow_group_id);
+			render('borrow/return',$output);
+		}
+		render('borrow/view');
+	}
 }

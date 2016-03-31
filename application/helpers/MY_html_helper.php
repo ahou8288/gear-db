@@ -37,13 +37,12 @@ function generate_navigation($active_link = 'project') {
 			'view borrowed gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
 			)
 		);
-			/*$links['Progress'] = array(
-			'url' => array('url' => 'Progress/view', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-tasks',
+		$links['Help'] = array(
+			'url' => array('url' => 'borrow/borrow', 'attr' => ''),
+			'icon' => 'glyphicon glyphicon-warning-sign',
 			'attr' => '', 
-			'sub-links' => array(
-			)
-		);*/
+			'sub-links' => array()
+		);
 
 
 	$CI = & get_instance();
