@@ -5,14 +5,10 @@ class borrow extends CI_Controller {
 	public function __construct()
 	{
         parent::__construct();
-		$this->load->helper('application_helper');
 
 		$this->load->model('gear_model');
 		$this->load->model('people_model');
 		$this->load->model('borrow_model');
-
-        $this->load->view('templates/header');
-        $this->load->view('templates/footer');
 	}
 
 	public function borrow()
@@ -29,13 +25,13 @@ class borrow extends CI_Controller {
 		$postData['person']=json_decode($_POST['person_borrowing'],TRUE);
 		$borrow_insert_data=array();
 
-		dbg($_POST);
+		// dbg($_POST);
 		foreach($postData['gear'] as $val){
 			$temp_row=array(
 				'gear_id'		=>$val['id'],
 				'person_id'		=>$postData['person']['id'],
 				'deposit'		=>$_POST['deposit'],
-				// 'comment'		=>$_POST['comments'],
+				'comment'		=>$_POST['comments'],
 				'returned'		=>0);
 			array_push($borrow_insert_data,$temp_row);
 		}
@@ -57,6 +53,7 @@ class borrow extends CI_Controller {
 				array('Fields'=>'date_return',		'DisplayName'=>'Date of Returning'),
 				array('Fields'=>'returned',			'DisplayName'=>'Returned'),
 				array('Fields'=>'borrow_group_id',	'DisplayName'=>'Borrow Group Number'),
+				array('Fields'=>'comment',			'DisplayName'=>'Comment'),
 			);
         render('borrow/view',$output);
 	}
@@ -65,9 +62,10 @@ class borrow extends CI_Controller {
 		$id=3;
 		if ($id){
 			$output['data']['gear']=$this->borrow_model->borrow_group_gear($id);
-			dbg($output);
+			// dbg($output);
 			render('borrow/return',$output);
+		} else {
+			render('borrow/view');
 		}
-		render('borrow/view');
 	}
 }
