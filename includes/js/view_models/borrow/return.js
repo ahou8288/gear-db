@@ -4,17 +4,26 @@ var ViewModel = function(data){
 	var self = this;
 	self.initialData = data;
 	self.gearArray = ko.observableArray();
+	self.returnedGear = ko.observableArray();
+
+	// self.returningGear=array();
 	
 	self.init = function() {
 		// console.log(initialData);
 		self.generateArrays();
 		self.refreshDatatable();
+		self.refreshDatatable2();
 		
 	};
 
 	self.generateArrays = function(){
 		for(var index in data['gear']){
-			self.gearArray.push(new RecordViewModel(data['gear'][index]));
+			// console.log(data['gear'][index]);
+			if (data['gear'][index]['returned']=="0"){
+				self.gearArray.push(new RecordViewModel(data['gear'][index]));
+			} else {
+				self.returnedGear.push(new RecordViewModel(data['gear'][index]));
+			}
 		}
 	}
 
@@ -52,11 +61,43 @@ var ViewModel = function(data){
 	        // "pagingType": "full_numbers"
 		});
 
-/*		$("#dataTable").on('click', 'tbody tr', function(e){
-			//window.document.location = 'edit/'+self.table.row( this ).data().Appointment_ID();
-			// console.log(self.table.row( this ).data());
-			clickedRow = self.table.row( this ).data();
-		});*/
+		$("#dataTable").on('click', 'tbody tr', function(e){
+	        $("#personTable tbody tr").removeClass('row_selected');        
+	        $(this).addClass('row_selected');
+
+		});
+	}
+
+	self.refreshDatatable2 = function() {
+		self.table = $("#dataTable2").DataTable({
+			data: self.returnedGear(),
+	        columns: [
+	            { 	"data": function(row){
+		        		return row['id'];
+	            	}, 
+		            title: "ID" 
+		        },
+		        { 	"data": function(row){
+		        		return row['age'];
+	            	}, 
+		            title: "Age" 
+		        },
+		        { 	"data": function(row){
+		        		return row['name'];
+	            	}, 
+		            title: "Name" 
+		        },
+		        { 	"data": function(row){
+		        		return row['type'];
+	            	}, 
+		            title: "Type" 
+		        }
+	        ], 
+			stateSave: true,
+			dom: '<"left"l>fBrtip',
+			buttons: [],
+			fixedHeader: true
+		});
 	}
 }
 
