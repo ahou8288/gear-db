@@ -18,15 +18,15 @@ function base_url_versioned($uri, $cache_version = APP_VERSION) {
 function generate_navigation($active_link = 'project') {
 	// Here you specify the nav's sections, links and their optional icons.
 
-	$links = array(	'Home' => array('url' => 'Welcome', 'icon' => 'glyphicon glyphicon-home', 'attr' => ''),);
+	//$links = array(	'Home' => array('url' => 'Welcome', 'icon' => 'glyphicon glyphicon-home', 'attr' => ''),);
 
 
-		$links['Gear'] = array(
-			'url' => array('url' => 'Gear/view', 'attr' => ''),
+		$links['View Gear'] = array(
+			'url' => array('url' => 'gear/view', 'attr' => ''),
 			'icon' => 'glyphicon glyphicon-th-list',
 			'attr' => '', 
 			'sub-links' => array(
-			'New' => array('url' => 'Gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
+			'New' => array('url' => 'gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
 			)
 		);
 		$links['Borrow Gear'] = array(
@@ -34,7 +34,7 @@ function generate_navigation($active_link = 'project') {
 			'icon' => 'glyphicon glyphicon-gift',
 			'attr' => '', 
 			'sub-links' => array(
-			'view' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'view borrowed gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
 			)
 		);
 			/*$links['Progress'] = array(
