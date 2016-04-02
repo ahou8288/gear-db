@@ -70,6 +70,14 @@ class borrow extends CI_Controller {
 	}
 
 	public function save_return(){
-		dbg($_POST);
+		$postData['gear']=json_decode($_POST['selectedGear'],TRUE);
+		// dbg($postData);
+		//for each set returned to 1
+		$borrow_group=$postData['gear'][0]['borrow_group_id'];
+		foreach ($postData['gear'] as $temp_row){
+			$this->borrow_model->process_return($borrow_group,$temp_row['gear_id']);
+		}
+		// dbg($gear_ids);
+		redirect('borrow/view');
 	}
 }

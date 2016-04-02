@@ -3,7 +3,7 @@
 	<h4>Gear still to be returned</h4>
 	<table id='dataTable' class='table'></table>
 
-	<input type="hidden" name="returnGear" data-bind="value: ko.toJSON(selectedGear)" />
+	<input type="hidden" name="selectedGear" data-bind="value: ko.toJSON(selectedGear)" />
 
 	<div class="form-group">
 		<input type="submit" class="btn btn-default" data-bind="enable: selectedGear().length>0">

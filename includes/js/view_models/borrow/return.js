@@ -105,7 +105,7 @@ var ViewModel = function(data){
 
 var RecordViewModel = function(data){
 	var self = this;
-	self.initialData = data;
+	// self.initialData = data;
 
 	for(var field in data){
 		var val = data[field];

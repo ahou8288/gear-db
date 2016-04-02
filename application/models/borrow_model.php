@@ -42,4 +42,10 @@ class borrow_model extends CI_Model {
         $query=$this->db->get();
         return $query->result_array();
     }
+    public function process_return($borrow_group,$gear_id){
+        $this->db->where('borrow_group_id',$borrow_group);
+        $this->db->where('gear_id',$gear_id);
+        $this->db->set('returned',1);
+        $query=$this->db->update('borrow');
+    }
 }
