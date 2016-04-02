@@ -54,8 +54,7 @@ var ViewModel = function(data){
 	        ], 
 			stateSave: true,
 			dom: '<"left"l>fBrtip',
-			buttons: [
-	        ],
+			buttons: [],
 			fixedHeader: true
 	        // "pagingType": "full_numbers"
 		});
@@ -63,14 +62,16 @@ var ViewModel = function(data){
 		$("#dataTable").on('click', 'tbody tr', function(e){      
 	        $(this).toggleClass('row_selected');
 	        self.clickedItem=ko.observable(self.table.row( this ).data());
-	        if ((self.clickedItem() != "") && (self.selectedGear.indexOf(self.clickedItem()) < 0)){
+	        if ((self.selectedGear.indexOf(self.clickedItem()) < 0)){
 	        	self.selectedGear.push(self.clickedItem());
+	        } else{
+	        	self.selectedGear.remove(self.clickedItem());
 	        }
 		});
 	}
 
 	self.refreshDatatable2 = function() {
-		self.table = $("#dataTable2").DataTable({
+		self.table2 = $("#dataTable2").DataTable({
 			data: self.returnedGear(),
 	        columns: [
 	            { 	"data": function(row){

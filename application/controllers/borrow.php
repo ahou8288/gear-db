@@ -68,4 +68,8 @@ class borrow extends CI_Controller {
 			render('borrow/view');
 		}
 	}
+
+	public function save_return(){
+		dbg($_POST);
+	}
 }
