@@ -52,7 +52,7 @@ var ViewModel = function(data){
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
-			window.document.location = base_url+'borrow/gear_return';///'+self.table.row( this ).data().borrow_group_id;
+			window.document.location = base_url+'borrow/gear_return/'+self.table.row( this ).data().borrow_group_id;
 		});
 	}
 

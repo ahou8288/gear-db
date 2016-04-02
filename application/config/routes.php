@@ -54,6 +54,7 @@ $route['Internal'] = 'Internal';
 $route['Clients'] = 'Clients';
 $route['Admin'] = 'Admin';
 $route['Timesheets'] = 'Timesheets';
+$route['borrow'] = 'borrow';
 
 
 
@@ -65,6 +66,6 @@ $route['Editor'] = 'Editor';
 $route['Costings'] = 'Costings';
 $route['Welcome'] = 'Welcome';
 $route['default_controller'] = 'Welcome';
-$route['(:any)'] = 'pages/view/$1';
+// $route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

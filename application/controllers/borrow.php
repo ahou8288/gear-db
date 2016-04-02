@@ -58,8 +58,7 @@ class borrow extends CI_Controller {
         render('borrow/view',$output);
 	}
 
-	public function gear_return(){
-		$id=3;
+	public function gear_return($id){
 		if ($id){
 			$output['data']['gear']=$this->borrow_model->borrow_group_gear($id);
 			// dbg($output);

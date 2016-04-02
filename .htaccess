@@ -1,6 +1,3 @@
-Options FollowSymLinks
-RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^/]+)(?:/([^/]+))?/?$ index.php?nav=$1#$2 [L,QSA,NC]
+RewriteEngine on
+RewriteCond $1 !^(index\.php|robots\.txt|includes|uploads)
+RewriteRule ^(.*)$ index.php/$1
