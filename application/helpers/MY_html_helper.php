@@ -37,9 +37,21 @@ function generate_navigation($active_link = 'project') {
 			'view borrowed gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
 			)
 		);
-		$links['Help'] = array(
+/*		$links['Help'] = array(
 			'url' => array('url' => 'borrow/borrow', 'attr' => ''),
 			'icon' => 'glyphicon glyphicon-warning-sign',
+			'attr' => '', 
+			'sub-links' => array()
+		);*/
+		$links['Login'] = array(
+			'url' => array('url' => 'login/login', 'attr' => ''),
+			'icon' => 'glyphicon glyphicon-user',
+			'attr' => '', 
+			'sub-links' => array()
+		);
+		$links['Logout'] = array(
+			'url' => array('url' => 'login/logout', 'attr' => ''),
+			'icon' => 'glyphicon glyphicon-off',
 			'attr' => '', 
 			'sub-links' => array()
 		);

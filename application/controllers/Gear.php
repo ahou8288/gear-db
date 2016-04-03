@@ -10,6 +10,10 @@ class Gear extends CI_Controller {
 		$this->load->model('gear_model');
         $this->load->view('templates/header');
         $this->load->view('templates/footer');
+
+        if ($_SESSION['admin']!=1){
+			redirect('login/login');
+		}
 	}
 	public function view()
 	{
@@ -22,9 +26,9 @@ class Gear extends CI_Controller {
 	{
 		// $output['data']['gear']= $this->gear_model->get_stuff();
 		$output['data']['fields_list']=array(
-			array('Field'=>'age','DisplayName'=>'age'),
-			array('Field'=>'name','DisplayName'=>'name'),
-			array('Field'=>'type','DisplayName'=>'type'));
+			array('Field'=>'age','DisplayName'=>'Age of gear'),
+			array('Field'=>'name','DisplayName'=>'Name'),
+			array('Field'=>'type','DisplayName'=>'Item type'));
 		// dbg($output);
         render('gear/edit',$output);
 	}

@@ -1,12 +1,12 @@
 <h3>Return Gear</h3>
-<form action='../borrow/save_return' method="post">
+<form action='../save_return' method="post">
 	<h4>Gear still to be returned</h4>
 	<table id='dataTable' class='table'></table>
 
 	<input type="hidden" name="selectedGear" data-bind="value: ko.toJSON(selectedGear)" />
 
 	<div class="form-group">
-		<input type="submit" class="btn btn-default" data-bind="enable: selectedGear().length>0">
+		<input type="submit" class="btn btn-default" data-bind="enable: selectedGear().length>0" value="Return Selected Gear">
 	</div>
 </form>
 

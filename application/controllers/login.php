@@ -12,17 +12,24 @@ class login extends CI_Controller {
 
 	public function login()
 	{
-		session_destroy(0);
-		render('login/login')
+		render('login/login');
 	}
 
 	public function check_details(){
-		if ($_POST['username'] == 'SURMC' && $_POST['password'] == 'SURMC'){
-			session_start(0);
+		if ($_POST['username'] == '' && $_POST['password'] == ''){
+			if (session_status() == PHP_SESSION_NONE) {
+			    session_start();
+			}
 			$_SESSION['admin']=1;
-			render('gear/view');
+			redirect('gear/view');
 		} else {
 			render('login/login');
 		}
+	}
+
+		public function logout()
+	{
+		session_destroy();
+		render('login/logout');
 	}
 }

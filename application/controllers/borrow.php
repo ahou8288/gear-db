@@ -9,6 +9,10 @@ class borrow extends CI_Controller {
 		$this->load->model('gear_model');
 		$this->load->model('people_model');
 		$this->load->model('borrow_model');
+
+		if ($_SESSION['admin']!=1){
+			redirect('login/login');
+		}
 	}
 
 	public function borrow()
@@ -64,7 +68,7 @@ class borrow extends CI_Controller {
 			// dbg($output);
 			render('borrow/return',$output);
 		} else {
-			render('borrow/view');
+			redirect('borrow/view');
 		}
 	}
 
@@ -77,6 +81,6 @@ class borrow extends CI_Controller {
 			$this->borrow_model->process_return($borrow_group,$temp_row['gear_id']);
 		}
 		// dbg($gear_ids);
-		redirect('borrow/view');
+		redirect('gear/view');
 	}
 }
