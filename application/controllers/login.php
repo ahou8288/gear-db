@@ -6,6 +6,7 @@ class login extends CI_Controller {
 	{
         parent::__construct();
 		$this->load->helper('application_helper');
+		$this->load->model('admin_model');
         $this->load->view('templates/header');
         $this->load->view('templates/footer');
 	}
@@ -16,11 +17,13 @@ class login extends CI_Controller {
 	}
 
 	public function check_details(){
-		if ($_POST['username'] == '' && $_POST['password'] == ''){
+		$userStatus=$this->admin_model->get_admin_level($_POST);
+		dbg($userStatus);
+		if ($userStatus>0){
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
-			$_SESSION['admin']=1;
+			$_SESSION['admin']=$userStatus;
 			redirect('gear/view');
 		} else {
 			render('login/login');
