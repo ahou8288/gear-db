@@ -36,7 +36,7 @@ function generate_navigation($active_link = 'project') {
 			'attr' => '', 
 			'sub-links' => array(
 			'View Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
-			'Return Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
+			'Return Borrowed Gear' => array('url' => 'borrow/view_return', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
 			'Borrow gear' => array('url' => 'borrow/borrow', 'attr' => '', 'icon' => 'glyphicon glyphicon-gift'),
 			)
 		);
