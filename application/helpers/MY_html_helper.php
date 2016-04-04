@@ -21,20 +21,23 @@ function generate_navigation($active_link = 'project') {
 	//$links = array(	'Home' => array('url' => 'Welcome', 'icon' => 'glyphicon glyphicon-home', 'attr' => ''),);
 
 
-		$links['View Gear'] = array(
+		$links['Gear'] = array(
 			'url' => array('url' => 'gear/view', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-th-list',
+			'icon' => '',
 			'attr' => '', 
 			'sub-links' => array(
-			'New' => array('url' => 'gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
+			'View Gear' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'New Gear Item' => array('url' => 'gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
 			)
 		);
-		$links['Borrow Gear'] = array(
-			'url' => array('url' => 'borrow/borrow', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-gift',
+		$links['Borrow'] = array(
+			'url' => array('url' => 'borrow/view', 'attr' => ''),
+			'icon' => '',
 			'attr' => '', 
 			'sub-links' => array(
-			'view borrowed gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'View Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'Return Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
+			'Borrow gear' => array('url' => 'borrow/borrow', 'attr' => '', 'icon' => 'glyphicon glyphicon-gift'),
 			)
 		);
 /*		$links['Help'] = array(

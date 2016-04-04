@@ -45,8 +45,7 @@ class borrow extends CI_Controller {
 		redirect('borrow/view');
 	}
 
-	public function view()
-	{
+	public function get_borrow_table(){
 		$output['data']['rows']= $this->borrow_model->get_stuff();
 		// dbg($output);
 		$output['data']['Fields']=array(
@@ -59,7 +58,17 @@ class borrow extends CI_Controller {
 				array('Fields'=>'borrow_group_id',	'DisplayName'=>'Borrow Group Number'),
 				array('Fields'=>'comment',			'DisplayName'=>'Comment'),
 			);
-        render('borrow/view',$output);
+		return $output;
+	}
+
+	public function view()
+	{
+        render('borrow/view',$this->get_borrow_table());
+	}
+
+	public function view_return()
+	{
+        render('borrow/return_table',$this->get_borrow_table());
 	}
 
 	public function gear_return($id){
