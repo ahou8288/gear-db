@@ -37,7 +37,7 @@
 		<input type="text" class="form-control" name="deposit" id="deposit">
 
 		<label class="control-label" for="comments">Comments</label>
-		<input type="text" class="form-control" name="comments" id="comments" />
+		<textarea type="text" class="form-control" name="comments" id="comments" rows="5"></textarea> 
 
 		<div class="form-group">
 			<input type="submit" class="btn btn-default" data-bind="enable: gear_list().length>0 && selectedPerson() != undefined">

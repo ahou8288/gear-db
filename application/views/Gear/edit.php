@@ -1,6 +1,6 @@
 <h4>New Gear</h4>
 
-<form role="form"  action='../gear/save' method="post" class="form-horizontal">
+<form role="form"  action='../gear/save' method="post" class="form-horizontal col-lg-6">
 	<?php 
 		foreach ($data['fields_list'] as $index => $val){
 			echo '<div class="form-group">';
