@@ -26,7 +26,8 @@ function generate_navigation($active_link = 'project') {
 			'icon' => '',
 			'attr' => '', 
 			'sub-links' => array(
-			'View Gear' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'View All Gear' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'View Availiable Gear' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
 			'New Gear Item' => array('url' => 'gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
 			)
 		);
@@ -36,6 +37,7 @@ function generate_navigation($active_link = 'project') {
 			'attr' => '', 
 			'sub-links' => array(
 			'View Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'View Overdue Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'), //Email these people
 			'Return Borrowed Gear' => array('url' => 'borrow/view_return', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
 			'Borrow gear' => array('url' => 'borrow/borrow', 'attr' => '', 'icon' => 'glyphicon glyphicon-gift'),
 			)

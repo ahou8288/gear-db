@@ -74,7 +74,7 @@ var ViewModel = function(data){
 		}
 
 		self.table2 = $("#dataTable2").DataTable({
-			data: self.rowData(),
+			data: self.rowData2(),
 			columns: columnsArr,
 			stateSave: false,
 			dom: '<"left"l>fBrtip',

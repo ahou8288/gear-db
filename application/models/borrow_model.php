@@ -46,6 +46,7 @@ class borrow_model extends CI_Model {
         $this->db->where('borrow_group_id',$borrow_group);
         $this->db->where('gear_id',$gear_id);
         $this->db->set('returned',1);
+        $this->db->set('date_return', 'NOW()', FALSE);
         $query=$this->db->update('borrow');
     }
 }
