@@ -17,6 +17,6 @@ class admin_model extends CI_Model {
         $this->db->where('username',$username);
         $this->db->where('password',$password_hash);
         $query=$this->db->get();
-        return $query->result_array();
+        return $query->row_array();
     }
 }

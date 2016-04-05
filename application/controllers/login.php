@@ -18,12 +18,12 @@ class login extends CI_Controller {
 
 	public function check_details(){
 		$userStatus=$this->admin_model->get_admin_level($_POST);
-		dbg($userStatus);
-		if ($userStatus>0){
+		// dbg($userStatus);
+		if ($userStatus['admin']>0){
 			if (session_status() == PHP_SESSION_NONE) {
 			    session_start();
 			}
-			$_SESSION['admin']=$userStatus;
+			$_SESSION['admin']=$userStatus['admin'];
 			redirect('gear/view');
 		} else {
 			render('login/login');
