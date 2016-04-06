@@ -38,8 +38,8 @@ function generate_navigation($active_link = 'project') {
 			'sub-links' => array(
 			'View Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
 			'View Overdue Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'), //Email these people
-			'Return Borrowed Gear' => array('url' => 'borrow/view_return', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
 			'Borrow gear' => array('url' => 'borrow/borrow', 'attr' => '', 'icon' => 'glyphicon glyphicon-gift'),
+			'Return Borrowed Gear' => array('url' => 'borrow/view_return', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
 			)
 		);
 /*		$links['Help'] = array(
