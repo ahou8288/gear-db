@@ -439,69 +439,6 @@ function display_dates(&$data = null, $index = null, $keys = null, $format = 'd/
 	return $data;
 }
 
-/**
- * Helper function for quickly sending an email. Makes sure the right transport is selected based on application environment.
- * Requires a few constants to be defined in constants.php:
- *		DEV_EMAIL - typically dev@opus.co.nz
- *		APP_NAME - name of the application
- *		EMAIL_FROM - who to send the email from by default. e.g dev@opus.co.nz
- *		EMAIL_FROM_NAME - same as above, but their name. e.g Dev Team
- *		DEV_LOGGING_EMAIL - where to BCC a copy of the email. e.g. devlog@opus.co.nz
- * @param string|array $to Email address(s) to send the email to, can be an array.
- * @param string $subject Email subject string.
- * @param string $message The content of the message. Can be CI view content. $this->load->view('view_name', true);
- * @param string $from The address the email was sent from.
- * @param string $from_name The name of the entity that sent the email.
- * @param boolean $auto_send Set this to false to stop the auto-sending of the email. Use this if in your calling function you wish to do additional things such as add attachments.						
- */
-function send_email($to = DEV_EMAIL, $subject = APP_NAME, $message = 'No message', $from = EMAIL_FROM, $from_name = EMAIL_FROM_NAME, $auto_send = true) {
-	$CI = & get_instance();
-	$CI->load->library('email'); 
- 
-	// Default configuration
-	$config = array(
-		'mailtype' => 'html',
-		'wordwrap' => false
-	);
- 
-	// Some configuration is dependent on the environment.
-	if (is_dev_server()) {
-		// Don't actually send testing system emails to the actual intended user. 
-		$to_str = is_array($to) ? implode(', ', $to) : $to;
-		$subject .= " (to: $to_str)";
-		$to = array(get_user('email'), 'tom.headifen@opus.co.nz');
-	}
- 
-	// Figure out the correct mail transport to use. For our servers simply use sendmail (postfix) to do the sending straight to Office 365.
-	if (isset($_SERVER['SERVER_OWNER']) && $_SERVER['SERVER_OWNER'] == 'devteam') {
-		$config['protocol'] = 'sendmail';
-	} else {
-		// For all other servers use com instead.
-		$config['protocol'] = 'smtp';
-		$config['smtp_host'] = 'com.opus.co.nz';
-	}
- 
-	$CI->email->initialize($config);
-	$CI->email->from($from, $from_name);
-	$CI->email->to($to);
-	$CI->email->subject($subject);
-	$CI->email->message($message);
- 
-	// On production all system emails should be BCC'd to our logging address.
-	if (!is_dev_server()) {
-		$CI->email->bcc(DEV_LOGGING_EMAIL);
-	}
- 
-	if ($auto_send) {
-		$CI->email->send();
-	}
-}
-
-/**
- * Converts a hexadecimal color value to an array of rgb values.
- * @param string $hex The hex color string with or without the leading #
- * @return array An array of rgb values.
- */
 function hex_to_rgb($hex) {
 	$hex = ltrim($hex, '# ');
 	$rgb['R'] = hexdec(substr($hex, 0, 2));

@@ -64,10 +64,6 @@
 				</div>
 				<div class="content-column">
 					<h1 ><?= APP_NAME ?></h1>
-					<?php if (/*ENVIRONMENT*/'0' == 'development'): ?>
-						<!-- <span class='pull-left'><b>Logged in as: <?=get_user('full_name')?></b></span> -->
-						<!-- <a href="<?=site_url() . 'staff/users/'?>" class="btn btn-info pull-right"><i class='glyphicon glyphicon-edit'></i>Permissions</a>. -->
-					<?php endif?>
 				</div>
 
 			</div>

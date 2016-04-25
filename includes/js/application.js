@@ -14,13 +14,13 @@ $(document).ready(function() {
 
 
 	// Automatically refresh/initialise bootstrap tooltips on page load.
-	opus.html.refresh_tooltips();
+	otherName.html.refresh_tooltips();
 
 	// Automatically refresh datepickers.
-	opus.html.refresh_datepickers();
+	otherName.html.refresh_datepickers();
 
 	// Hide page alerts after a short while.
-	opus.html.clear_messages(6000);
+	otherName.html.clear_messages(6000);
 
 	//check if we are navigating away from a form. give a form a class of monitor to monitor it.
 	var is_form_changed = false;
@@ -61,7 +61,7 @@ jQuery.validator.addMethod("nz_date", function(value, element) {
 }, "* The date should be in dd/mm/yyyy format.");
 
 // A namespace to hold our own utility functions. Put any new utility functions here, under the appropriate category.
-opus = {
+otherName = {
 	// Utility functions for working with numbers.
 	number: {
 		// Prepends to the given number using the given string.
@@ -125,7 +125,7 @@ opus = {
 			if (delay) {
 				setTimeout(function() {
 					// Recursive action after a short delay.
-					opus.html.clear_messages(null, container);
+					otherName.html.clear_messages(null, container);
 				}, delay);
 			} else {
 				messages.each(function(idx, alert) {
@@ -251,7 +251,7 @@ opus = {
 					'cache': false,
 					'ajax': {
 						'beforeSend': function() {
-							spinner = opus.html.input_spinner(spinner_id);
+							spinner = otherName.html.input_spinner(spinner_id);
 							search_icon.hide();
 							
 							if (on_send) {

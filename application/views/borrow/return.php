@@ -14,6 +14,7 @@
 <table id='dataTable2' class='table'></table>
 
 <script>
+	// This script calls the javascript which sets up that dataTable and stuff
   $(document).ready(function() {
     model = new ViewModel(<?php echo json_encode($data) ?>);
     ko.applyBindings(model);

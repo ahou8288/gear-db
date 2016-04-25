@@ -1,0 +1,38 @@
+Todo:
+Documentation
+Check if deleted borrow items are okay.
+
+Finished:
+--Message about returning deposit
+--Fix accordion closing for gear/view
+--Retired and deleted radio buttons for input
+--Data validation for input during gear editing/ input
+--Make edit/new show the correct title page
+--fix new/edit for gear and people
+--Auto open default table during gear/view and borrow/view.
+--More prominent subheadings/ instructions (perhaps include in title of accordian)
+--People add and edit
+--People view
+--Remove ID columns from tables
+--Rigid categories (dropdown for selecting ect)
+
+Features for later:
+**Buttons for categories, use vertical button group inside each accordian.
+**Only show stuff that happened recently /sort tables by date by default
+**Email system (email people who have overdue gear from the website itself)
+**Help pages
+**Item History and person history
+**Current owner/borrower of gear displayed in gear tables.
+**Borrow items which are already borrowed (with warning)
+**Progress bar for gear items returning or number of days item has been out.
+**Public Information (eg, view what's in the locker and what's due back soon without logging in)
+**Blacklist people (just delete people for now)
+**Radio buttons already selected when editing
+**Backup database or excel export and import
+
+Commenting:
+--Controllers
+--Models
+--Views
+--Javascript
+--MY_HTML_HELPER

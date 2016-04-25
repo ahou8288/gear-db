@@ -2,6 +2,7 @@
 
 var ViewModel = function(data){
 	var self = this;
+	//Create variables to hold the data
 	self.initialData = data;
 	self.gearArray = ko.observableArray();
 	self.gear_list= ko.observableArray();
@@ -12,17 +13,20 @@ var ViewModel = function(data){
     self.selectedPerson=ko.observable();
 
 	self.init = function() {
+		//Call the required functions on startup
 		self.generateArrays();
 		self.refreshDatatable();
 		self.refreshDatatable2();
 	};
  
     self.removeSelected = function () {
+    	//Remove an item
         self.gear_list.removeAll(self.selectedItems());
         self.selectedItems([]); // Clear selection
     };
 
 	self.generateArrays = function(){
+		//Put the data from the controller into arrays.
 		for(var index in data['gear']){
 			self.gearArray.push(new RecordViewModel(data['gear'][index]));
 		}
@@ -34,6 +38,7 @@ var ViewModel = function(data){
 	self.refreshDatatable = function() {
 		self.table = $("#dataTable").DataTable({
 			data: self.gearArray(),
+			// Specify the columns to show
 	        columns: [
 	            { 	"data": function(row){
 		        		return row['id'];
@@ -51,7 +56,7 @@ var ViewModel = function(data){
 		            title: "Name" 
 		        },
 		        { 	"data": function(row){
-		        		return row['type'];
+		        		return row['cat'];
 	            	}, 
 		            title: "Type" 
 		        }
@@ -65,9 +70,15 @@ var ViewModel = function(data){
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
+			// When this row is clicked selet or deselect the item.
+
 			self.itemToAdd=ko.observable(self.table.row( this ).data());
-	        if ((self.itemToAdd() != "") && (self.gear_list.indexOf(self.itemToAdd()) < 0)) // Prevent blanks and duplicates
+	        if ((self.itemToAdd() != "") && (self.gear_list.indexOf(self.itemToAdd()) < 0)){ // Prevent blanks and duplicates
 	            self.gear_list.push(self.itemToAdd());
+	        } else {
+	        	self.gear_list.remove(self.itemToAdd());
+	        }
+	        $(this).toggleClass('row_selected');
 		});
 	}
 
@@ -75,6 +86,7 @@ var ViewModel = function(data){
 	self.refreshDatatable2 = function() {
 		self.table2 = $("#personTable").DataTable({
 			data: self.people(),
+			// Specify the columns to show
 	        columns: [
 	            { 	"data": function(row){
 		        		return row['id'];
@@ -93,25 +105,21 @@ var ViewModel = function(data){
 			fixedHeader: true
 		});
 		$("#personTable tbody tr").on('click',function(event) {
+			// When this row is clicked select or delselect the item.
 	        $("#personTable tbody tr").removeClass('row_selected');        
 	        $(this).addClass('row_selected');
 
 			self.selectedPerson(self.table2.row( this ).data());
 	    });
 	}
-
-
 }
 
 var RecordViewModel = function(data){
+	// This function puts the data into an appropriate structure
 	var self = this;
-	// self.initialData = data;
 
 	for(var field in data){
 		var val = data[field];
-		// self[field] = ko.observable(val);
 		self[field] = val;
-		
 	}
-
 }

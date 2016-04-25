@@ -17,17 +17,13 @@ function base_url_versioned($uri, $cache_version = APP_VERSION) {
 
 function generate_navigation($active_link = 'project') {
 	// Here you specify the nav's sections, links and their optional icons.
-
-	//$links = array(	'Home' => array('url' => 'Welcome', 'icon' => 'glyphicon glyphicon-home', 'attr' => ''),);
-
-
 		$links['Gear'] = array(
 			'url' => array('url' => 'gear/view', 'attr' => ''),
 			'icon' => '',
 			'attr' => '', 
 			'sub-links' => array(
-			'View All Gear' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
-			'View Availiable Gear' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'View Gear Information' => array('url' => 'gear/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'Edit Gear Item' => array('url' => 'gear/edit_table', 'attr' => '', 'icon' => 'glyphicon glyphicon-pencil'),
 			'New Gear Item' => array('url' => 'gear/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
 			)
 		);
@@ -36,18 +32,22 @@ function generate_navigation($active_link = 'project') {
 			'icon' => '',
 			'attr' => '', 
 			'sub-links' => array(
-			'View Borrowed Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
-			'View Overdue Gear' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'), //Email these people
-			'Borrow gear' => array('url' => 'borrow/borrow', 'attr' => '', 'icon' => 'glyphicon glyphicon-gift'),
-			'Return Borrowed Gear' => array('url' => 'borrow/view_return', 'attr' => '', 'icon' => 'glyphicon glyphicon-home'),
+			'View Borrowing Information' => array('url' => 'borrow/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'Borrow Gear' => array('url' => 'borrow/borrow', 'attr' => '', 'icon' => 'glyphicon glyphicon-gift'),
+			'Return Gear' => array('url' => 'borrow/view_return', 'attr' => '', 'icon' => 'glyphicon glyphicon-saved'),
+			'Email Overdue' => array('url' => 'borrow/email_list', 'attr' => '', 'icon' => 'glyphicon glyphicon-envelope'),
 			)
 		);
-/*		$links['Help'] = array(
-			'url' => array('url' => 'borrow/borrow', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-warning-sign',
+		$links['People'] = array(
+			'url' => array('url' => 'people/view', 'attr' => ''),
+			'icon' => '',
 			'attr' => '', 
-			'sub-links' => array()
-		);*/
+			'sub-links' => array(
+			'View People Information' => array('url' => 'people/view', 'attr' => '', 'icon' => 'glyphicon glyphicon-list'),
+			'Edit Person' => array('url' => 'people/edit_table', 'attr' => '', 'icon' => 'glyphicon glyphicon-pencil'),
+			'New Person' => array('url' => 'people/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
+			)
+		);
 		$links['Login'] = array(
 			'url' => array('url' => 'login/login', 'attr' => ''),
 			'icon' => 'glyphicon glyphicon-user',
@@ -60,7 +60,6 @@ function generate_navigation($active_link = 'project') {
 			'attr' => '', 
 			'sub-links' => array()
 		);
-
 
 	$CI = & get_instance();
 	$active_link = $CI->uri->uri_string;

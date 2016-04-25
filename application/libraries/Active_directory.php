@@ -16,13 +16,13 @@ class Active_Directory {
 	public function __construct() {		
 		$this->CI =& get_instance();
 		
-		$this->server				= 'CHDC01.opus.global';		// barnz: We need a host that determines the correct local AD server to use (similar to Opussvof)
-		$this->base_dn				= 'DC=opus,DC=global';
+		$this->server				= 'localhost';
+		$this->base_dn				= 'DC=global';
 		$this->user_key				= 'sAMAccountName';			// Attribute key used to identify users by their usercode.
 		
 		// Active Directory - LDAP Binding credentials.
-		$this->login				= 'CN=nzdev,OU=CH,OU=Users,OU=SR,OU=NZ,DC=opus,DC=global';
-		$this->pass					= 'Opu5nzd3v';
+		$this->login				= 'CN=nzdev';
+		$this->pass					= '';
 
 		$this->countries 			= array('NZ', 'AU', 'CA', 'CM', 'UK', 'US');
 		$this->countries_regions 	= array('NZ'=>array('CR', 'NR', 'SR', 'WR'), 'AU'=>array('NS', 'QU', 'WA'), 'CA'=>array('CE', 'CW', 'SW'), 'CM'=>array('GR'), 'UK'=>array('NO','SO'), 'US'=>array('CW'));

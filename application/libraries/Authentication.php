@@ -59,11 +59,11 @@ class Authentication {
 				} else {
 					// Simply find a matching active directory user to login as.
 					if (!$user = $this->ci->active_directory->get_user_details($user_code)) {
-						$error_message = 'No active Opus user was found by ' . $user_code;
+						$error_message = 'No active user was found by ' . $user_code;
 					}
 				}
 		} else {
-			$error_message = 'Please enter an Opus user code';
+			$error_message = 'Please enter an user code';
 		}
 		
 		// Setup the user session.
@@ -84,7 +84,7 @@ class Authentication {
 	}
 
 	 /**
-	 * Authenticate using the users opus usercode. NTLM is handled by an apache module installed
+	 * Authenticate using the users usercode. NTLM is handled by an apache module installed
 	 * on the server, so all we need to do is read out the REMOTE_USER variable under the $_SERVER globals.
 	 * In order for this to work you need to make sure that the line: Require valid-user exists in the htaccess
 	 */
@@ -158,7 +158,7 @@ class Authentication {
 			$this->ci->load->model('application_model');
 			
 			//get user from staff changes database
-			$user = array_shift($this->ci->application_model->get_users(array('opus_user_code'=>$userdata['usercode'])));
+			$user = array_shift($this->ci->application_model->get_users(array('user_code'=>$userdata['usercode'])));
 			//Different levels of authentication
 			if($user){
 				$userdata['is_super_admin'] = $user->is_super_admin == 't' ? 't' : 'f';

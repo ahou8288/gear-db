@@ -7,7 +7,6 @@ var ViewModel = function(data){
 	self.fieldsList = ko.observableArray();
 	
 	self.init = function() {
-		// console.log(data);
 		self.generateArrays();
 		self.refreshDatatable();
 		
@@ -24,24 +23,20 @@ var ViewModel = function(data){
 
 
 	self.refreshDatatable = function() {
-		columnsArr = [
-				{ 	"data": function(row){
-		        		return row['id'];
-	            	}, 
-		            title: "ID" 
-		        }];
 
+		//Create the columns array from the data sent from the controller.
+		columnsArr = [];
 		for(var index in self.fieldsList()){
 
 			var functionStr="return row['"+self.fieldsList()[index]['Fields']+"'];";
-			var tempFunc=Function("row",functionStr);
+			var tempFunc=Function("row",functionStr); //Create a tempoary function to return the right field in each column
 
-			columnsArr.push({"data": tempFunc, 
-		            title: self.fieldsList()[index]['DisplayName']
+			columnsArr.push({"data": tempFunc,  //Assign the data of this column to the return value of the function
+		            title: self.fieldsList()[index]['DisplayName'] //Assign the heading of the field to the display name
 		        });
 		}
 
-		self.table = $("#dataTable").DataTable({
+		self.table = $("#dataTable").DataTable({ //Put the columns and the data into the datatable
 			data: self.rowData(),
 			columns: columnsArr,
 			stateSave: false,
@@ -52,6 +47,7 @@ var ViewModel = function(data){
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
+			//Link each row to the gear return page
 			window.document.location = base_url+'borrow/gear_return/'+self.table.row( this ).data().borrow_group_id;
 		});
 	}

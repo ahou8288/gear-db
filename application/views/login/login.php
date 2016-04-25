@@ -1,3 +1,5 @@
+<!-- This is the login page, it allows users to input a username and password -->
+
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">

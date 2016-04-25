@@ -3,29 +3,24 @@
 var ViewModel = function(data){
 	var self = this;
 	self.initialData = data;
-	
-	self.fields_list = '';
+	self.fields_list = ko.observableArray();
 
 	self.init = function() {
-		self.fields_list = ko.observableArray();
 		self.generateArrays();
 	};
 
-
 	self.generateArrays = function(){
-			self.fields_list=new RecordViewModel(data['fields_list']);
+		// Put each of the fields in an array.
+		for(var index in data['fields_list']){
+			self.fields_list.push(new RecordViewModel(data['fields_list'][index]));
+		}
 	}
 }
 
 var RecordViewModel = function(data){
 	var self = this;
-	// self.initialData = data;
-
 	for(var field in data){
 		var val = data[field];
-		// self[field] = ko.observable(val);
-		self[field] = val;
-		
+		self[field] = ko.observable(val); //Store the valuse as observable so that they can be edited and update automatically.
 	}
-
 }
