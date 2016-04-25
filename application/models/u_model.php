@@ -28,7 +28,15 @@ class u_model extends CI_Model {
         return $query->result_array();
     }
 
-        public function get_cat(){
+    public function db_backup()
+    {
+           $this->load->dbutil();   
+           $backup =& $this->dbutil->backup();  
+           $this->load->helper('file');
+           write_file('your_file_path/your_DB.zip', $backup); 
+    }
+
+    public function get_cat(){
         //This function returns all the categores.
         $query=$this->db->get('categories');
         $cat= $query->result_array();

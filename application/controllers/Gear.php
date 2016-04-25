@@ -121,4 +121,28 @@ class Gear extends CI_Controller {
 		}
 		redirect('gear/edit_table');
 	}
+
+	public function backup(){
+		// Save the information that was added/ changed when editing.
+		
+        $output['message']="Database backup download initiated.";
+        render('gear/download',$output);
+	}
+
+
+
+	public function download()
+	{
+		$this->load->dbutil();
+
+        $prefs = array(     
+                'format'      => 'zip',             
+                'filename'    => 'gear_db.sql'
+              );
+
+        $db_name = 'backup-on-'. date("Y-m-d-H-i-s") .'.zip';
+        $this->load->helper('download');
+        force_download($db_name, $this->dbutil->backup($prefs)); 
+
+	}
 }

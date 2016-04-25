@@ -60,7 +60,7 @@ class people extends CI_Controller {
 
 		$output['data']['fields_list']=array( //create a list of fields with info display name and also the database name of each column.
 				'name'=>array('Person Name','name',0),
-				'deleted'=>array('Deleted','deleted',1), //The number 1 means that this item is a radio button. (yes/no)
+				'deleted'=>array('Deleted','deleted',1,array(array(0,'No'),array(1,'Yes'),)), //The number 1 means that this item is a radio button. (yes/no)
 			);
 
 		if ($id){

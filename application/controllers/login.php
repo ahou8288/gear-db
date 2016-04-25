@@ -30,7 +30,7 @@ class login extends CI_Controller {
 		}
 	}
 
-		public function logout()
+	public function logout()
 	{
 		session_destroy();
 		render('login/logout');

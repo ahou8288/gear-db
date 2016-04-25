@@ -48,18 +48,11 @@ function generate_navigation($active_link = 'project') {
 			'New Person' => array('url' => 'people/edit', 'attr' => '', 'icon' => 'glyphicon glyphicon-plus'),
 			)
 		);
-		$links['Login'] = array(
-			'url' => array('url' => 'login/login', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-user',
-			'attr' => '', 
-			'sub-links' => array()
-		);
-		$links['Logout'] = array(
-			'url' => array('url' => 'login/logout', 'attr' => ''),
-			'icon' => 'glyphicon glyphicon-off',
-			'attr' => '', 
-			'sub-links' => array()
-		);
+		$links['Login'] = array('url' => array('url' => 'login/login', 'attr' => ''),'icon' => 'glyphicon glyphicon-user','attr' => '', 'sub-links' => array());
+
+		$links['Logout'] = array('url' => array('url' => 'login/logout', 'attr' => ''),'icon' => 'glyphicon glyphicon-off','attr' => '', 'sub-links' => array());
+
+		$links['Download Backup'] = array('url' => array('url' => 'gear/backup', 'attr' => ''),'icon' => 'glyphicon glyphicon-download-alt','attr' => '','sub-links' => array());
 
 	$CI = & get_instance();
 	$active_link = $CI->uri->uri_string;

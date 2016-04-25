@@ -3,6 +3,7 @@ Documentation
 Check if deleted borrow items are okay.
 
 Finished:
+--fix person add/edit radio buttons
 --Message about returning deposit
 --Fix accordion closing for gear/view
 --Retired and deleted radio buttons for input
@@ -28,7 +29,7 @@ Features for later:
 **Public Information (eg, view what's in the locker and what's due back soon without logging in)
 **Blacklist people (just delete people for now)
 **Radio buttons already selected when editing
-**Backup database or excel export and import
+**Automatic backup
 
 Commenting:
 --Controllers
