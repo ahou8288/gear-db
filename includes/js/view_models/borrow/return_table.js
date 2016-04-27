@@ -41,7 +41,7 @@ var ViewModel = function(data){
 			columns: columnsArr,
 			stateSave: false,
 			dom: '<"left"l>fBrtip',
-			buttons: ['colvis'],
+			buttons: [],
 			fixedHeader: true
 	        // "pagingType": "full_numbers"
 		});

@@ -4,12 +4,12 @@
 	<div class="form-group col-lg-12">
 		
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-8">
 				<h5>Select your gear</h5>
 				<table id='dataTable' class='table'></table>
 			</div>
 
-			<div class="col-lg-6">
+			<div class="col-lg-4">
 				<label for="sel1">Gear selected;</label>
 				<!-- The data-bind tag in the next line is a reference to knockout js. It updates the contents of the select box. -->
 				<select class="form-control" multiple="multiple" id="sel1" height="30" data-bind="

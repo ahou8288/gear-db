@@ -37,3 +37,37 @@ Commenting:
 --Views
 --Javascript
 --MY_HTML_HELPER
+
+<input type='radio' name='gender' value='Male'>
+<input type='radio' name='gender' value='Female'>
+$(function() {
+    var $radios = $('input:radio[name=gender]');
+    if($radios.is(':checked') === false) {
+        $radios.filter('[value=Male]').prop('checked', true);
+    }
+});
+
+$(document).ready(function() {
+    $('#example').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
