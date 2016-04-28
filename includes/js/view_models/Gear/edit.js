@@ -5,6 +5,9 @@ var ViewModel = function(data){
 	self.initialData = data;
 	self.fields_list = ko.observableArray();
 
+	self.f_names=[];
+	self.f_vals=[];
+
 	self.init = function() {
 		self.generateArrays();
 		self.checkRadio();
@@ -19,23 +22,28 @@ var ViewModel = function(data){
 	self.checkRadio = function(){
 		for(var index in self.initialData.fields_list){
 			if( self.initialData.fields_list[index][2]==1){
-				// console.log(self.initialData.fields_list[index][3]);
+				// console.log(self.initialData.fields_list[index]);
 				var f_name = self.initialData.fields_list[index][1];
 				// console.log(f_name);
-				var f_val = self.initialData.fields_list[index][4];
-				var f_num = self.initialData.fields_list[index][3][parseInt(f_val)][0];
+				var f_val = parseInt(self.initialData.fields_list[index][4]);
 				if (f_name==='type'){
-					f_num=parseInt(f_num)-1;
+					f_val=f_val-1;
 				}
-				
-				$(function() {
-					var $radios = $('input:radio[name='+f_name+']');
-					if($radios.is(':checked') === false) {
-						$radios.filter('[value='+f_num+']').prop('checked', true);
-					}
-				});
+				// console.log(f_val);
+				var f_num = self.initialData.fields_list[index][3][f_val][0];
+				// console.log(f_num);
+
+				self.f_names.push(f_name);
+				self.f_vals.push(f_val);
+				// console.log(self.f_vals);
 			}
 		}
+		$(function() {
+			var $radios = $('input:radio[name='+f_name+']');
+			if($radios.is(':checked') === false) {
+				$radios.filter('[value='+f_val+']').prop('checked', true);
+			}
+		});
 	}
 }
 
