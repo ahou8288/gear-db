@@ -15,7 +15,7 @@
 				<select class="form-control" multiple="multiple" id="sel1" height="30" data-bind="
 					options:gear_list,
 					optionsText: function(item) {
-						return item.name+' - '+item.age
+						return item.cat+' - '+item.name
 					}">
 				</select>
 			</div>
@@ -26,10 +26,10 @@
 		</div>
 		<div class="col-lg-12">
 			<label class="control-label" for="deposit">Deposit</label>
-			<input type="text" class="form-control" name="deposit" id="deposit">
+			<input type="text" placeholder="type deposit amount here eg. $20" class="form-control" name="deposit" id="deposit" required>
 
 			<label class="control-label" for="comments">Comments</label>
-			<textarea type="text" class="form-control" name="comments" id="comments" rows="5"></textarea> 
+			<textarea type="text" placeholder="eg. Beginner trad trip"  class="form-control" name="comments" id="comments" rows="5"></textarea> 
 		</div>
 
 		<!-- This is how data on what is selected is sent back to the controller -->

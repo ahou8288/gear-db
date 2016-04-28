@@ -1,6 +1,7 @@
 Todo:
 Documentation
 Check if deleted borrow items are okay.
+Get fields from database instead of code where possible
 
 Finished:
 --fix person add/edit radio buttons
@@ -30,6 +31,8 @@ Features for later:
 **Blacklist people (just delete people for now)
 **Radio buttons already selected when editing
 **Automatic backup
+**Homepage
+**Borrow duration
 
 Commenting:
 --Controllers
@@ -48,7 +51,7 @@ $(function() {
 });
 
 $(document).ready(function() {
-    $('#example').DataTable( {
+    $('#dataTable0').DataTable( {
         initComplete: function () {
             this.api().columns().every( function () {
                 var column = this;
