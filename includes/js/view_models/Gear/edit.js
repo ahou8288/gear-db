@@ -20,28 +20,25 @@ var ViewModel = function(data){
 		}
 	}
 	self.checkRadio = function(){
-		for(var index in self.initialData.fields_list){
-			if( self.initialData.fields_list[index][2]==1){
-				// console.log(self.initialData.fields_list[index]);
-				var f_name = self.initialData.fields_list[index][1];
-				// console.log(f_name);
-				var f_val = parseInt(self.initialData.fields_list[index][4]);
-				if (f_name==='type'){
-					f_val=f_val-1;
-				}
-				// console.log(f_val);
-				var f_num = self.initialData.fields_list[index][3][f_val][0];
-				// console.log(f_num);
+		for(var index in self.initialData.fields_list){ //For each input
+			if( self.initialData.fields_list[index][2]==1){ //If it is a radio button
+				var f_name = self.initialData.fields_list[index][1]; //find the name of the input
+				var f_val = parseInt(self.initialData.fields_list[index][4]); //Find the which button it is
+				var f_num = self.initialData.fields_list[index][3][f_val][0]; //Find the value of this button
 
+				//Store the name and value of the button
 				self.f_names.push(f_name);
 				self.f_vals.push(f_val);
-				// console.log(self.f_vals);
 			}
 		}
+
+		// Check the radio buttons
 		$(function() {
-			var $radios = $('input:radio[name='+f_name+']');
-			if($radios.is(':checked') === false) {
-				$radios.filter('[value='+f_val+']').prop('checked', true);
+			for (var i = 0; i < self.f_names.length; i++) { //For each button
+				var $radios = $('input:radio[name='+self.f_names[i]+']'); //Find the set of input buttons
+				if($radios.is(':checked') === false) {
+					$radios.filter('[value='+self.f_vals[i]+']').prop('checked', true); //Check the correct button by matching the value
+				}
 			}
 		});
 	}
