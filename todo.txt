@@ -1,7 +1,4 @@
 Todo:
-Documentation
-Check if deleted borrow items are okay.
-Get fields from database instead of code where possible. (check how it was done previously)
 
 Finished:
 --fix person add/edit radio buttons
@@ -16,7 +13,7 @@ Finished:
 --People add and edit
 --People view
 --Remove ID columns from tables
---Rigid categories (dropdown for selecting ect)
+--Rigid categories buttons for selecting
 --Radio buttons already selected when editing
 
 Features for later:
