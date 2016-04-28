@@ -1,7 +1,7 @@
 Todo:
 Documentation
 Check if deleted borrow items are okay.
-Get fields from database instead of code where possible
+Get fields from database instead of code where possible. (check how it was done previously)
 
 Finished:
 --fix person add/edit radio buttons
