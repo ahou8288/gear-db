@@ -15,9 +15,10 @@ function base_url_versioned($uri, $cache_version = APP_VERSION) {
  */
 
 
-function generate_navigation($active_link = 'project') {
-	// Here you specify the nav's sections, links and their optional icons.
-		$links['Gear'] = array(
+function return_links(){
+	$links['Home'] = array('url' => array('url' => 'login/home', 'attr' => ''),'icon' => 'glyphicon glyphicon-home','attr' => '', 'sub-links' => array());
+
+	$links['Gear'] = array(
 			'url' => array('url' => 'gear/view', 'attr' => ''),
 			'icon' => '',
 			'attr' => '', 
@@ -54,6 +55,13 @@ function generate_navigation($active_link = 'project') {
 
 		$links['Download Backup'] = array('url' => array('url' => 'gear/backup', 'attr' => ''),'icon' => 'glyphicon glyphicon-download-alt','attr' => '','sub-links' => array());
 
+		return $links;
+}
+
+function generate_navigation($active_link = 'project') {
+	// Here you specify the nav's sections, links and their optional icons.
+		
+	$links=return_links();
 	$CI = & get_instance();
 	$active_link = $CI->uri->uri_string;
   	// Generate the actual nav item markup.

@@ -35,4 +35,26 @@ class login extends CI_Controller {
 		session_destroy();
 		render('login/logout');
 	}
+
+	public function home(){
+		$links=return_links();
+
+		//Get main links (displayed across page)
+		$output['main_links']=array(
+			array('title'=>'Gear','link'=>$links['Gear']),
+			array('title'=>'Borrow','link'=>$links['Borrow']),
+			array('title'=>'People','link'=>$links['People']));
+		
+		unset($links['Home']);
+		unset($links['Gear']);
+		unset($links['Borrow']);
+		unset($links['People']);
+		// Get minor links (displayed below)
+		$output['minor_links']=array();
+		foreach($links as $title => $link){
+			array_push($output['minor_links'],array('title'=>$title,'link'=>$link));
+		}
+		// dbg($output);
+		render('login/home',$output);
+	}
 }
