@@ -3,6 +3,11 @@
 <form action='../borrow/save' method="post">
 	<div class="form-group col-lg-12">
 		
+		<div class="col-lg-12">
+			<h5>Person Borrowing Gear</h5>
+			<table id='personTable' class='table'></table>
+		</div>
+		
 		<div class="row">
 			<div class="col-lg-8">
 				<h5>Select your gear</h5>
@@ -19,10 +24,6 @@
 					}">
 				</select>
 			</div>
-		</div>
-		<div class="col-lg-12">
-			<h5>Person Borrowing Gear</h5>
-			<table id='personTable' class='table'></table>
 		</div>
 		<div class="col-lg-12">
 			<label class="control-label" for="deposit">Deposit</label>

@@ -16,13 +16,13 @@ class Gear extends CI_Controller {
 		}
 	}
 
-	public function return_gear_fields($deleted=FALSE){
+	public function return_gear_fields($deleted=FALSE,$retired=FALSE){
 		//Return a list of the fields to display when viewing gear tables
 		$gear_fields=array(
 			array('Fields'=>'name',		'DisplayName'=>'Gear Name'),
 			array('Fields'=>'cat',		'DisplayName'=>'Category'),
-			array('Fields'=>'age',		'DisplayName'=>'Item Age'),
-			array('Fields'=>'retired',	'DisplayName'=>'Retired'),);
+			array('Fields'=>'age',		'DisplayName'=>'Item Age'),);
+		if ($retired) array_push($gear_fields,array('Fields'=>'retired',	'DisplayName'=>'Retired'));
 		if ($deleted) array_push($gear_fields,array('Fields'=>'deleted',	'DisplayName'=>'Deleted')); //only show the deleted field if the function argument is TRUE, otherwise by default leave it out.
 		return $gear_fields;
 	}
@@ -49,7 +49,7 @@ class Gear extends CI_Controller {
 		$output['data'][2]['row_data']=$all_gear_table;
 		$output['data'][2]['title']='All gear';
 		$output['data'][2]['subtitle']='Including gear which is retired (and no longer in the locker).';
-		$output['data'][2]['Fields']=$gear_fields;
+		$output['data'][2]['Fields']=$this->return_gear_fields(FALSE,TRUE);
 		// dbg($output);
         render('gear/view',$output);
 	}
@@ -59,7 +59,7 @@ class Gear extends CI_Controller {
 
 		$output['data'][0]['page_title']="Click on the gear item you want to edit";
 
-		$gear_fields=$this->return_gear_fields(TRUE);
+		$gear_fields=$this->return_gear_fields(TRUE,TRUE);
 
 		$output['data'][0]['row_data']=$this->gear_model->get_stuff();
 		$output['data'][0]['title']='Edit gear';

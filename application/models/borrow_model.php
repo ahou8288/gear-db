@@ -69,10 +69,11 @@ class borrow_model extends CI_Model {
 
     public function borrow_group_gear($id){
         //This function returns all the gear which is from a specific borrow group.
-        $this->db->select('gear.*, borrow.*');
+        $this->db->select('gear.*, borrow.*, categories.name as cat');
         $this->db->from('borrow');
         $this->db->where('borrow.borrow_group_id',$id);
         $this->db->join('gear','borrow.gear_id=gear.id'); //link the gear table so that more information can be displayed.
+        $this->db->join('categories','categories.id=gear.type'); //show gear category
         $query=$this->db->get();
         return $query->result_array();
     }

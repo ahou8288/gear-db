@@ -1,4 +1,14 @@
 Todo:
+link login to homepage
+don't show retired in view tables
+Connvert all tables into one table with buttons for categories
+when viewing the borrow tables have one line for each borrow_group_id with multiple items show at once.
+--Put person at the top of borrow
+--Make return selected gear button more obvious
+--Return gear type should be cat
+Change 0/1s to yes/nos for person, retired etc.
+show yes/no instead of 1/0 in datatables
+Change GearSelected <select> thingy in the borrow view to text instead
 
 Finished:
 --fix person add/edit radio buttons

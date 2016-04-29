@@ -49,9 +49,9 @@ var ViewModel = function(data){
 		            title: "Name" 
 		        },
 		        { 	"data": function(row){
-		        		return row['type'];
+		        		return row['cat'];
 	            	}, 
-		            title: "Type" 
+		            title: "Category" 
 		        }
 	        ], 
 			stateSave: true,
