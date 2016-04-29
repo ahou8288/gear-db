@@ -41,8 +41,8 @@ class login extends CI_Controller {
 
 		//Get main links (displayed across page)
 		$output['main_links']=array(
-			array('title'=>'Gear','link'=>$links['Gear']),
 			array('title'=>'Borrow','link'=>$links['Borrow']),
+			array('title'=>'Gear','link'=>$links['Gear']),
 			array('title'=>'People','link'=>$links['People']));
 		
 		unset($links['Home']);

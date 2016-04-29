@@ -16,8 +16,9 @@
             echo ('<div class="list-group">');
             foreach($link['link']['sub-links'] as $link_title => $sub_link){
                 echo('<a href="../'.$sub_link['url'].'" class="list-group-item">
-                    <'.$subheading_size.'>'.$link_title.'</'.$subheading_size.'>
-                    </a>');
+                    <'.$subheading_size.'>
+                    <span class="'.$sub_link['icon'].'" aria-hidden="true"></span> '.
+                    $link_title.'</'.$subheading_size.'></a>');
             }
             echo ('</div>');
         echo ('</div>');
@@ -29,8 +30,9 @@
     foreach($minor_links as $link){
         // dbg($link);
         echo('<a href="../'.$link['link']['url']['url'].'" class="list-group-item">
-            <'.$subheading_size.'>'.$link['title'].'</'.$subheading_size.'>
-            </a>');
+            <'.$subheading_size.'>
+            <span class="'.$link['link']['icon'].'" aria-hidden="true"></span> '.
+            $link['title'].'</'.$subheading_size.'></a>');
     }
     echo ('</div>');
  ?>
