@@ -24,7 +24,7 @@ class login extends CI_Controller {
 			    session_start();
 			}
 			$_SESSION['admin']=$userStatus['admin'];
-			redirect('gear/view');
+			redirect('login/home');
 		} else {
 			render('login/login');
 		}

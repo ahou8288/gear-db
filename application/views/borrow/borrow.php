@@ -8,21 +8,24 @@
 			<table id='personTable' class='table'></table>
 		</div>
 		
+		<h5>Select your gear</h5>
 		<div class="row">
 			<div class="col-lg-8">
-				<h5>Select your gear</h5>
 				<table id='dataTable' class='table'></table>
 			</div>
 
 			<div class="col-lg-4">
-				<label for="sel1">Gear selected;</label>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Gear selected;</h3>
+					</div>
+					<div class="panel-body">
 				<!-- The data-bind tag in the next line is a reference to knockout js. It updates the contents of the select box. -->
-				<select class="form-control" multiple="multiple" id="sel1" height="30" data-bind="
-					options:gear_list,
-					optionsText: function(item) {
-						return item.cat+' - '+item.name
-					}">
-				</select>
+						<span data-bind="foreach: gear_list">
+							<h5 data-bind="text:$data.cat+' - '+$data.name"></h5>
+						</span>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="col-lg-12">
