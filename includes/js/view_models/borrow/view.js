@@ -34,6 +34,8 @@ var ViewModel = function(data){
 				var field=self.fieldsList[table_num]()[index]['Fields'];
 				if (field==='returned'){
 					var functionStr="if (row['"+field+"']==1){return 'Yes';}else{return 'No';}";
+				} else if (field==='date_return'){
+					var functionStr="if (row['date_return']=='0000-00-00'){return 'Not returned';}else{return row['date_return'];}";
 				} else {
 					var functionStr="return row['"+field+"'];";
 				}
