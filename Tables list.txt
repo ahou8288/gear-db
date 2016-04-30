@@ -1,0 +1,13 @@
+All fields from model or controller.
+
+Tables list;
+gear view - fields + retired, fields
+edit gear - fields + retired + deleted
+
+borrow view - fields from borrow and gear name and gear category
+borrow - people without deleted, gear without deleted and retired
+return_table - same as borrow view
+return - gear without deleted and retired
+
+people view - people without deleted
+edit people - people with deleted
