@@ -37,18 +37,18 @@ class Gear extends CI_Controller {
 		$all_gear_table= $this->u_model->get_table('gear');
 
 		$output['data'][0]['row_data']= $this->gear_model->get_avaliable();
-		$output['data'][0]['title']='Availiable Gear';
-		$output['data'][0]['subtitle']='Gear which is availiable for borrowing';
+		$output['data'][0]['title']='Locker Gear';
+		$output['data'][0]['subtitle']='Gear which is inside the locker and availiable for borrowing';
 		$output['data'][0]['Fields']=$gear_fields;
 		// dbg($output);
 		$output['data'][1]['row_data']= $this->u_model->get_table('gear',array('retired'=>'0'));
-		$output['data'][1]['title']='Non Retired Display';
-		$output['data'][1]['subtitle']='Gear which is in the locker or borrowed out.';
+		$output['data'][1]['title']='All Current Gear';
+		$output['data'][1]['subtitle']='All the gear surmc currently has (but not the gear that was retired and removed).';
 		$output['data'][1]['Fields']=$gear_fields;
 
 		$output['data'][2]['row_data']=$all_gear_table;
-		$output['data'][2]['title']='All gear';
-		$output['data'][2]['subtitle']='Including gear which is retired (and no longer in the locker).';
+		$output['data'][2]['title']='All Gear in Database';
+		$output['data'][2]['subtitle']='All gear, including gear which is retired (and no longer in the locker).';
 		$output['data'][2]['Fields']=$this->return_gear_fields(FALSE,TRUE);
 		// dbg($output);
         render('gear/view',$output);

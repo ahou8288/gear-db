@@ -74,23 +74,23 @@ class borrow extends CI_Controller {
 		$gear_fields=$this->get_borrow_table(); //Get the fields which we normally display from a function
 
 		$output['data'][0]['row_data']= $this->borrow_model->get_stuff(array('returned'=>'0')); // Data in the table is stored here
-		$output['data'][0]['title']='Currently Borrowed'; //Heading for the table is stored here
+		$output['data'][0]['title']='Borrowed Gear'; //Heading for the table is stored here
 		$output['data'][0]['subtitle']='Borrowed gear which has not been returned yet'; //Sub heading here
 		$output['data'][0]['Fields']=$gear_fields; // A list of fields for the table to render.
 
 		$output['data'][1]['row_data']= $this->borrow_model->get_stuff();
-		$output['data'][1]['title']='All borrow events';
+		$output['data'][1]['title']='All borrowing events';
 		$output['data'][1]['subtitle']='All borrow events recorded in this system are included in this table';
 		$output['data'][1]['Fields']=$gear_fields;
 
 		$output['data'][2]['row_data']= $this->borrow_model->get_stuff(array('returned'=>'1'));
-		$output['data'][2]['title']='Returned Borrow Events';
-		$output['data'][2]['subtitle']='This is a record of when gear has been returned gear';
+		$output['data'][2]['title']='Previously Returned Gear';
+		$output['data'][2]['subtitle']='This is a record of when gear has been returned';
 		$output['data'][2]['Fields']=$gear_fields;
 
 		$output['data'][3]['row_data']= $this->borrow_model->get_overdue(14);
 		$output['data'][3]['title']='Overdue Gear';
-		$output['data'][3]['subtitle']='Borrowed gear which has not been returned yet and is overdue, or was overdue when returned';
+		$output['data'][3]['subtitle']='Borrowed gear which has not been returned yet and is overdue, and also gear that was overdue when returned';
 		$output['data'][3]['Fields']=$gear_fields;
 		// dbg($output);
         render('borrow/view',$output); //Send all the data to the view to be made into a webpage
