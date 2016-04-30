@@ -17,19 +17,21 @@ class people extends CI_Controller {
 		}
 	}
 
-	public function get_borrow_table(){
+	public function get_borrow_table($deleted=TRUE){
 		// This function returns a list of fields that are displayed to the user.
 		// It is neater to store them in a seperate function (less code clutter)
-		return array(
-				array('Fields'=>'name',		'DisplayName'=>'Name'),
-				array('Fields'=>'deleted',	'DisplayName'=>'Deleted'));
+		$fields=array(array('Fields'=>'name', 'DisplayName'=>'Name'));
+		if ($deleted) {
+				array_push($fields,array('Fields'=>'deleted','DisplayName'=>'Deleted'));
+		}
+		return $fields;
 	}
 
 	public function view()
 	{
         // This function collects all the data from the model to display a few tables to the user.
         
-		$gear_fields=$this->get_borrow_table();
+		$gear_fields=$this->get_borrow_table(FALSE);
 		$output['data'][0]['page_title']='People Information';
 
 		$output['data'][0]['row_data']= $this->u_model->get_table('people');
