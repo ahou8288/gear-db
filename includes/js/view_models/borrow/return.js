@@ -32,12 +32,12 @@ var ViewModel = function(data){
 		//Create the first dataTable
 		self.table = $("#dataTable").DataTable({
 			data: self.gearArray(),
-	        columns: [
+	        columns: [/*
 	            { 	"data": function(row){
 		        		return row['id'];
 	            	}, 
 		            title: "ID" 
-		        },
+		        },*/
 		        { 	"data": function(row){
 		        		return row['age'];
 	            	}, 
@@ -78,12 +78,12 @@ var ViewModel = function(data){
 		// Generate the other datatable
 		self.table2 = $("#dataTable2").DataTable({
 			data: self.returnedGear(),
-	        columns: [
+	        columns: [/*
 	            { 	"data": function(row){
 		        		return row['id'];
 	            	}, 
 		            title: "ID" 
-		        },
+		        },*/
 		        { 	"data": function(row){
 		        		return row['age'];
 	            	}, 

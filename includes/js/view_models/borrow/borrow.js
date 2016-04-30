@@ -39,12 +39,12 @@ var ViewModel = function(data){
 		self.table = $("#dataTable").DataTable({
 			data: self.gearArray(),
 			// Specify the columns to show
-	        columns: [
+	        columns: [/*
 	            { 	"data": function(row){
 		        		return row['id'];
 	            	}, 
 		            title: "ID" 
-		        },
+		        },*/
 		        { 	"data": function(row){
 		        		return row['age'];
 	            	}, 
@@ -87,12 +87,12 @@ var ViewModel = function(data){
 		self.table2 = $("#personTable").DataTable({
 			data: self.people(),
 			// Specify the columns to show
-	        columns: [
+	        columns: [/*
 	            { 	"data": function(row){
 		        		return row['id'];
 	            	}, 
 		            title: "ID" 
-		        },
+		        },*/
 		        { 	"data": function(row){
 		        		return row['name'];
 	            	}, 

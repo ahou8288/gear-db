@@ -27,11 +27,15 @@ var ViewModel = function(data){
 		//Create the columns array from the data sent from the controller.
 		columnsArr = [];
 		for(var index in self.fieldsList()){
+			var field=self.fieldsList()[index]['Fields'];
+			if (field==='returned'){
+				var functionStr="if (row['"+field+"']==1){return 'Yes';}else{return 'No';}";
+			} else {
+				var functionStr="return row['"+field+"'];";
+			}
+			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
 
-			var functionStr="return row['"+self.fieldsList()[index]['Fields']+"'];";
-			var tempFunc=Function("row",functionStr); //Create a tempoary function to return the right field in each column
-
-			columnsArr.push({"data": tempFunc,  //Assign the data of this column to the return value of the function
+			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
 		            title: self.fieldsList()[index]['DisplayName'] //Assign the heading of the field to the display name
 		        });
 		}
