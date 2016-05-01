@@ -24,6 +24,7 @@ class login extends CI_Controller {
 			    session_start();
 			}
 			$_SESSION['admin']=$userStatus['admin'];
+			$_SESSION['user']=$_POST['username']; //Currently unused, but might be need later
 			redirect('login/home');
 		} else {
 			render('login/login');

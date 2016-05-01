@@ -11,3 +11,10 @@ return - gear without deleted and retired
 
 people view - people without deleted
 edit people - people with deleted
+
+Plan -
+All fields only stored in models
+Models send data which is ready for javascript.
+models -> controllers -> views
+
+eg all gear fields come from one function

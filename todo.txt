@@ -1,6 +1,7 @@
 Todo:
 Connvert all tables into one table with buttons for categories
 when viewing the borrow tables have one line for each borrow_group_id with multiple items show at once.
+add an overdue field to borrow tables
 Change code to handle changes to fields in a uniform way (all gear tables from one fields list if possible)
 
 Finished:

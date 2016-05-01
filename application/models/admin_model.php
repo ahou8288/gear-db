@@ -12,7 +12,7 @@ class admin_model extends CI_Model {
         // This function checks a users credentials against users in the database
         $username=$post['username'];
         $password_hash=md5($post['password']); //Use a weak password hash so that plain text is not stored in the database and passwords are not exposed.
-
+        // dbg($password_hash);
         // SQL query;
         $this->db->select('*');
         $this->db->from('user');
