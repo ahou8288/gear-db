@@ -5,9 +5,58 @@ class gear_model extends CI_Model {
     {
         // Call the Model constructor
         parent::__construct();
+        $this->load->model('u_model');
         $this->load->database();
     }
     
+    function get_fields($deleted=FALSE,$retired=FALSE){
+        $query = $this->db->query('
+            SHOW FIELDS
+            FROM gear');
+
+        $tmp=$query->result_array();
+
+        // A list of the fields which should not be displayed
+        $non_display=array('id'=>FALSE,'type'=>FALSE);
+        if (!$retired) $non_display['retired']=FALSE;
+        if (!$deleted) $non_display['deleted']=FALSE; 
+
+        // These names appear at the top of datatables as column headings
+        $display_names=array(
+            'name'=>'Gear Name',
+            'cat'=>'Category',
+            'age'=>'Item Age',
+            'retired'=>'Retired',
+            'deleted'=>'Deleted',);
+
+        /*
+        Format of $radio_inputs is array('field_name',
+            array(array('option 1 value','option 1 text'),
+            array('option 2 value','option 2 text')),
+            'post_field'
+            );
+
+        Also, I want the input for category to post to the type column, so the post_filed option is used for that.
+        */
+        $yes_no=array(array(0,'No'),array(1,'Yes'));
+        $radio_inputs=array(
+            array('retired',$yes_no,'retired'),
+            array('deleted',$yes_no,'deleted'),
+            array('cat',$this->u_model->get_cat(),'type'),
+            );
+
+        $output=array('cat');
+
+        foreach ($tmp as $sql_field){
+            $field_name=$sql_field['Field'];
+            if (!isset($non_display[$field_name])){
+                array_push($output,$field_name);
+            }
+        }
+
+        dbg($output);
+    }
+
     function get_avaliable()
     {
         //This function gets all the gear which is availiable (not currrently borrowed)

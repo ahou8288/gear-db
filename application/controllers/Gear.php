@@ -30,7 +30,7 @@ class Gear extends CI_Controller {
 	public function view()
 	{
         // This function collects all the data from the model to display a few tables to the user.
-
+		$this->gear_model->get_fields(TRUE,TRUE);
 		$output['data'][0]['page_title']="Open the table you want to view";
 
 		$gear_fields=$this->return_gear_fields();
@@ -80,7 +80,7 @@ class Gear extends CI_Controller {
 			);
 
 		//Create an array with a list of fields.
-		$output['data']['fields_list']=$gear_fields=array(
+		$output['data']['fields_list']=array(
 				'name'=>array('Gear Name','name',0),
 				'age'=>array('Item Age','age',0),
 				'type'=>array('Category','type',1, $categories), //As this is a radio button input put a 0 instead of a 1 and include all the options to display
