@@ -101,6 +101,7 @@ class borrow extends CI_Controller {
 		// This function shows a table which lets users pick out gear to return.
 		$output['data']['rows']= $this->borrow_model->get_stuff(array('returned'=>'0'));
 		$output['data']['Fields']=$this->get_borrow_table();
+		// dbg($output);
         render('borrow/return_table',$output);
 	}
 

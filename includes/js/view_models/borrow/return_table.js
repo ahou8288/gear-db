@@ -48,8 +48,28 @@ var ViewModel = function(data){
 			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: [],
-			fixedHeader: true
+			fixedHeader: true,
 	        // "pagingType": "full_numbers"
+	        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
@@ -57,34 +77,6 @@ var ViewModel = function(data){
 			window.document.location = base_url+'borrow/gear_return/'+self.table.row( this ).data().borrow_group_id;
 		});
 	}
-
-	$(document).ready(function() {
-	    // Setup - add a text input to each footer cell
-	    $('#example tfoot th').each( function () {
-	        var title = $(this).text();
-	        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-	    } );
-	 
-	    // DataTable
-	    var table = self.table
-
-	    console.log(table);
-	 
-	    // Apply the search
-	    table.columns().every( function () {
-	        var that = this;
-
-	        console.log(this);
-	 
-	        $( 'input', this.footer() ).on( 'keyup change', function () {
-	            if ( that.search() !== this.value ) {
-	                that
-	                    .search( this.value )
-	                    .draw();
-	            }
-	        } );
-	    } );
-	} );
 }
 
 
