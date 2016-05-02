@@ -14,9 +14,9 @@ class borrow_model extends CI_Model {
             FROM borrow');
 
         $tmp=$query->result_array();
-        array_push($tmp,array('Field'=>'cat'));
-        array_push($tmp,array('Field'=>'gear_name'));
         array_push($tmp,array('Field'=>'name'));
+        array_push($tmp,array('Field'=>'gear_name'));
+        array_push($tmp,array('Field'=>'cat'));
 
         // A list of the fields which should not be displayed
         $non_display=array(
