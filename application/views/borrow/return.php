@@ -5,12 +5,30 @@
 	</div>
 
 	<h4>Gear still to be returned</h4>
-	<table id='dataTable1' class='table'></table>
+	<table id='dataTable1' class='table'><tfoot>
+		<tr>
+			<?php 
+				foreach ($data['fields'] as $index => $field){
+					echo('<th>');					
+					echo('</th>');
+				}
+			?>
+		</tr>
+	</tfoot></table>
 
 	<input type="hidden" name="selectedGear" data-bind="value: ko.toJSON(selectedGear)" />
 
 	<h4>Gear already returned</h4>
-	<table id='dataTable2' class='table'></table>
+	<table id='dataTable2' class='table'><tfoot>
+		<tr>
+			<?php 
+				foreach ($data['fields'] as $index => $field){
+					echo('<th>');					
+					echo('</th>');
+				}
+			?>
+		</tr>
+	</tfoot></table>
 
 
 	<div class="form-group">
