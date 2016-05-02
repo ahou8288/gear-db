@@ -30,7 +30,7 @@ class Gear extends CI_Controller {
 	public function view()
 	{
         // This function collects all the data from the model to display a few tables to the user.
-		$this->gear_model->get_fields(TRUE,TRUE);
+		$this->gear_model->get_fields(TRUE,TRUE,TRUE);
 		$output['data'][0]['page_title']="Open the table you want to view";
 
 		$gear_fields=$this->return_gear_fields();

@@ -9,12 +9,13 @@ class gear_model extends CI_Model {
         $this->load->database();
     }
     
-    function get_fields($deleted=FALSE,$retired=FALSE){
+    function get_fields($deleted=FALSE,$retired=FALSE,$radio=FALSE){
         $query = $this->db->query('
             SHOW FIELDS
             FROM gear');
 
         $tmp=$query->result_array();
+        array_push($tmp,array('Field'=>'cat'));
 
         // A list of the fields which should not be displayed
         $non_display=array('id'=>FALSE,'type'=>FALSE);
@@ -40,21 +41,35 @@ class gear_model extends CI_Model {
         */
         $yes_no=array(array(0,'No'),array(1,'Yes'));
         $radio_inputs=array(
-            array('retired',$yes_no,'retired'),
-            array('deleted',$yes_no,'deleted'),
-            array('cat',$this->u_model->get_cat(),'type'),
+            'retired'=> array($yes_no,'retired'),
+            'deleted'=> array($yes_no,'deleted'),
+            'cat'=>     array($this->u_model->get_cat(),'type'),
             );
 
-        $output=array('cat');
+        $output=array();
 
         foreach ($tmp as $sql_field){
             $field_name=$sql_field['Field'];
-            if (!isset($non_display[$field_name])){
-                array_push($output,$field_name);
+            if (!isset($non_display[$field_name])){ //Only deal with the fields which will be displayed
+                $entry['name']=$field_name;// Create a space to build all the info needed
+                $entry['display']=$display_names[$field_name];
+                if ($radio){
+                    if (isset($radio_inputs[$field_name])){ // Fill in all the info about the radio buttons
+                        $radio_info=&$radio_inputs[$field_name];
+                        $entry['radio']=1;
+                        $entry['post_name']=$radio_info[1];
+                        $entry['options']=$radio_info[0];
+                        $entry['radio']=1;
+                    } else {
+                        $entry['radio']=0;
+                    }
+                }
+                array_push($output,$entry);
             }
         }
 
         dbg($output);
+        return $output;
     }
 
     function get_avaliable()
