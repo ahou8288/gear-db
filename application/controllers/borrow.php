@@ -22,6 +22,8 @@ class borrow extends CI_Controller {
 		// get's the data needed to show the user the options for borrowing
 		// it gets a list of gear and people
 		$output['data']['gear']= $this->gear_model->get_avaliable();
+		$output['data']['gear_fields']=$this->gear_model->get_fields();
+		$output['data']['person_fields']=$this->people_model->get_fields();
 		$output['data']['people']= $this->u_model->get_table('people');
 		render('borrow/borrow',$output); //Send the data to the webpage
 	}

@@ -12,6 +12,10 @@ var ViewModel = function(data){
     self.people=ko.observableArray();
     self.selectedPerson=ko.observable();
 
+
+	self.field_gear = ko.observableArray();
+	self.field_people= ko.observableArray();
+
 	self.init = function() {
 		//Call the required functions on startup
 		self.generateArrays();
@@ -33,40 +37,54 @@ var ViewModel = function(data){
 		for(var index in data['people']){
 			self.people.push(new RecordViewModel(data['people'][index]));
 		}
+		for(var index in data['person_fields']){
+			self.field_people.push(new RecordViewModel(data['person_fields'][index]));
+		}
+		for(var index in data['gear_fields']){
+			self.field_gear.push(new RecordViewModel(data['gear_fields'][index]));
+		}
 	}
 
 	self.refreshDatatable = function() {
+		columnsArr = [];
+		for(var index in self.field_gear()){
+			var field=self.field_gear()[index]['name'];
+			var functionStr="return row['"+field+"'];";
+			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
+
+			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
+		            title: self.field_gear()[index]['display'] //Assign the heading of the field to the display name
+		        });
+		}
 		self.table = $("#dataTable").DataTable({
 			data: self.gearArray(),
 			// Specify the columns to show
-	        columns: [/*
-	            { 	"data": function(row){
-		        		return row['id'];
-	            	}, 
-		            title: "ID" 
-		        },*/
-		        { 	"data": function(row){
-		        		return row['age'];
-	            	}, 
-		            title: "Age" 
-		        },
-		        { 	"data": function(row){
-		        		return row['name'];
-	            	}, 
-		            title: "Name" 
-		        },
-		        { 	"data": function(row){
-		        		return row['cat'];
-	            	}, 
-		            title: "Type" 
-		        }
-	        ], 
+	        columns:columnsArr, 
 			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: [
 	        ],
-			fixedHeader: true
-	        // "pagingType": "full_numbers"
+			fixedHeader: true,
+	        initComplete: function () {
+	            this.api().columns().every( function () {
+	                var column = this;
+	                var select = $('<select class="form-control"><option value=""></option></select>')
+	                    .appendTo( $(column.footer()).empty() )
+	                    .on( 'change', function () {
+	                        var val = $.fn.dataTable.util.escapeRegex(
+	                            $(this).val()
+	                        );
+	 
+	                        column
+	                            .search( val ? '^'+val+'$' : '', true, false )
+	                            .draw();
+	                    } );
+	 
+	                column.data().unique().sort().each( function ( d, j ) {
+	                    select.append( '<option value="'+d+'">'+d+'</option>' )
+	                } );
+            	} );
+        	}
 		});
 
 		$("#dataTable").on('click', 'tbody tr', function(e){
@@ -84,25 +102,44 @@ var ViewModel = function(data){
 
 
 	self.refreshDatatable2 = function() {
+		columnsArr = [];
+		for(var index in self.field_people()){
+			var field=self.field_people()[index]['name'];
+			var functionStr="return row['"+field+"'];";
+			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
+
+			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
+		            title: self.field_people()[index]['display'] //Assign the heading of the field to the display name
+		        });
+		}
 		self.table2 = $("#personTable").DataTable({
 			data: self.people(),
 			// Specify the columns to show
-	        columns: [/*
-	            { 	"data": function(row){
-		        		return row['id'];
-	            	}, 
-		            title: "ID" 
-		        },*/
-		        { 	"data": function(row){
-		        		return row['name'];
-	            	}, 
-		            title: "Name" 
-		        }
-	        ], 
+	        columns: columnsArr, 
 			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: [],
-			fixedHeader: true
+			fixedHeader: true,
+	        initComplete: function () {
+	            this.api().columns().every( function () {
+	                var column = this;
+	                var select = $('<select class="form-control"><option value=""></option></select>')
+	                    .appendTo( $(column.footer()).empty() )
+	                    .on( 'change', function () {
+	                        var val = $.fn.dataTable.util.escapeRegex(
+	                            $(this).val()
+	                        );
+	 
+	                        column
+	                            .search( val ? '^'+val+'$' : '', true, false )
+	                            .draw();
+	                    } );
+	 
+	                column.data().unique().sort().each( function ( d, j ) {
+	                    select.append( '<option value="'+d+'">'+d+'</option>' )
+	                } );
+            	} );
+        	}
 		});
 		$("#personTable tbody tr").on('click',function(event) {
 			// When this row is clicked select or delselect the item.

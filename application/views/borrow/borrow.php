@@ -5,13 +5,31 @@
 		
 		<div class="col-lg-12">
 			<h5>Person Borrowing Gear</h5>
-			<table id='personTable' class='table'></table>
+				<table id='personTable' class='table'><tfoot>
+					<tr>
+						<?php 
+							foreach ($data['person_fields'] as $index => $field){
+								echo('<th>');					
+								echo('</th>');
+							}
+						?>
+					</tr>
+				</tfoot></table>
 		</div>
 		
 		<h5>Select your gear</h5>
 		<div class="row">
 			<div class="col-lg-8">
-				<table id='dataTable' class='table'></table>
+					<table id='dataTable' class='table'><tfoot>
+						<tr>
+							<?php 
+								foreach ($data['gear_fields'] as $index => $field){
+									echo('<th>');					
+									echo('</th>');
+								}
+							?>
+						</tr>
+					</tfoot></table>
 			</div>
 
 			<div class="col-lg-4">
