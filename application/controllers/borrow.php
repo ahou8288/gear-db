@@ -18,7 +18,6 @@ class borrow extends CI_Controller {
 	}
 
 	public function borrow(){
-		$this->borrow_model->get_fields();
 		// Borrow function:
 		// get's the data needed to show the user the options for borrowing
 		// it gets a list of gear and people
@@ -71,7 +70,7 @@ class borrow extends CI_Controller {
 	{
         // This function collects all the data from the model to display a few tables to the user.
 
-		$fields=$this->get_borrow_table(); //Get the fields which we normally display from a function
+		$borrow_fields=$this->borrow_model->get_fields(); //Get the fields which we normally display from a function
 		
 		$overdue_borrows=$this->borrow_model->get_overdue(14);
 		$all_borrows=$this->borrow_model->get_stuff();
@@ -89,13 +88,15 @@ class borrow extends CI_Controller {
 			}
 		}
 
-		$output['data'][1]['row_data']= $all_borrows;
-		$output['data'][1]['title']='Borrowed Gear Information';
-		$output['data'][1]['subtitle']='All borrow events recorded in this system are included in this table';
-		$output['data'][1]['Fields']=$fields;
+		$output['data']['row_data']= $all_borrows;
+		$output['data']['title']='Borrowed Gear Information';
+		$output['data']['subtitle']='All borrow events recorded in this system are included in this table';
+		$output['data']['fields']=$borrow_fields;
+		$output['data']['url']='';
+		$output['data']['url_id']='';
 
 		// dbg($output);
-        render('borrow/view',$output); //Send all the data to the view to be made into a webpage
+        render('gear/view',$output); //Send all the data to the view to be made into a webpage
 	}
 
 	public function view_return()
