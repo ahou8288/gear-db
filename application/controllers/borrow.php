@@ -75,6 +75,9 @@ class borrow extends CI_Controller {
 			}
 		}
 
+		// Enable or disable the next line to group by borrow_group_id
+		$all_borrows=$this->by_borrow_group($all_borrows);
+
 		$output['data']['row_data']= $all_borrows;
 		$output['data']['title']='Borrowed Gear Information';
 		$output['data']['subtitle']='All borrow events recorded in this system are included in this table';
@@ -147,5 +150,52 @@ class borrow extends CI_Controller {
 		$overdue['email_list']=$this->borrow_model->get_overdue(14,TRUE); //Get a list of the overdue items
 		// dbg($overdue);
 		render('borrow/email_list',$overdue);
+	}
+
+	public function by_borrow_group($borrow_info){
+		$grouped_info=array();
+		foreach ($borrow_info as $item){
+			if (!array_key_exists($item['borrow_group_id'], $grouped_info)){
+				$grouped_info[$item['borrow_group_id']]=array();
+			}
+			array_push($grouped_info[$item['borrow_group_id']],$item);
+		}
+
+		$compress_grouped_data=array();
+		foreach ($grouped_info as $item){
+			array_push($compress_grouped_data,$this->compress_grouped($item));
+		}
+
+		// dbg($compress_grouped_data);
+		return $compress_grouped_data;
+	}
+
+	public function compress_grouped($group_info){
+		//overdue
+		//gear names
+		//date return
+		//
+		$grouped_info=array(
+			'gear_name'=>'',
+			'date_return'=>'',
+			'returned'=>'',
+			'overdue'=>'',
+			);
+		foreach ($group_info as $item){
+
+			foreach ($item as $field => $value){
+				if ($field == 'gear_name' ||
+					$field == 'date_return' ||
+					$field == 'returned' ||
+					$field == 'overdue'){
+					$grouped_info[$field]=$grouped_info[$field].'<div>'.$value.'</div>';
+				} else {
+					$grouped_info[$field]=$value;
+
+				}
+			}
+		}
+		// dbg($grouped_info);
+		return $grouped_info;
 	}
 }
