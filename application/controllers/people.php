@@ -63,10 +63,7 @@ class people extends CI_Controller {
 	{
 		// This function deals with editing an entry or creating a new entry.
 
-		$output['data']['fields_list']=array( //create a list of fields with info display name and also the database name of each column.
-				'name'=>array('Person Name','name',0),
-				'deleted'=>array('Deleted','deleted',1,array(array(0,'No'),array(1,'Yes'),)), //The number 1 means that this item is a radio button. (yes/no)
-			);
+		$output['data']['fields_list']=$this->people_model->get_fields(TRUE,TRUE);
 
 		if ($id){
 			// Put the data relating to the item in the variable $output.
@@ -77,7 +74,11 @@ class people extends CI_Controller {
 
 			foreach ($output['data']['fields_list'] as $temp_num => $items){ //move the data from a seperate array into the same array as the fields.
 				//The is way each field also has a value associated with it.
-				array_push($output['data']['fields_list'][$temp_num],$gear_data[$temp_num]);
+				if ($items['radio']=='0'){
+					$output['data']['fields_list'][$temp_num]['value']=$gear_data[$items['name']];
+				} else {
+					$output['data']['fields_list'][$temp_num]['value']=$gear_data[$items['post_name']];
+				}
 			}
 		} else {
 			foreach ($output['data']['fields_list'] as $temp_num => $items){
