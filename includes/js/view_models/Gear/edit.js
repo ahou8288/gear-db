@@ -10,7 +10,7 @@ var ViewModel = function(data){
 
 	self.init = function() {
 		self.generateArrays();
-		self.checkRadio();
+		if (data['id']>0) self.checkRadio();
 	};
 
 	self.generateArrays = function(){
@@ -21,11 +21,13 @@ var ViewModel = function(data){
 	}
 	self.checkRadio = function(){
 		for(var index in self.initialData.fields_list){ //For each input
-			if( self.initialData.fields_list[index][2]==1){ //If it is a radio button
-				var f_name = self.initialData.fields_list[index][1]; //find the name of the input
-				var f_val = parseInt(self.initialData.fields_list[index][4]); //Find the which button it is
-				var f_num = self.initialData.fields_list[index][3][f_val][0]; //Find the value of this button
-
+			if( self.initialData.fields_list[index]['radio']==1){ //If it is a radio button
+				var f_name = self.initialData.fields_list[index]['post_name']; //find the name of the input
+				var f_val = parseInt(self.initialData.fields_list[index]['value']); //Find the which button it is
+				var f_num = self.initialData.fields_list[index]['options'][f_val][0]; //Find the value of this button
+				// console.log(f_name);
+				// console.log(f_val);
+				// console.log(f_num);
 				//Store the name and value of the button
 				self.f_names.push(f_name);
 				self.f_vals.push(f_val);

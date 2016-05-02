@@ -8,17 +8,17 @@
 	The index of the loop is $index. See knockout documentation for more info. -->
 
 		<!-- Print the label for the item -->
-		<label class="control-label" data-bind="text:$data[0], attr: {for: $data[0] }"></label>
-		<!-- ko if: $data[2]() == 0 -->
+		<label class="control-label" data-bind="text:$data['display'], attr: {for: $data['name'] }"></label>
+		<!-- ko if: $data['radio']() == 0 -->
 			<!-- Print the text input -->
-			<input class="form-control" type="text" data-bind="value:$data[3] ,attr: {id: $data[0], name: $data[1] }">
+			<input class="form-control" type="text" data-bind="value:$data['value'] ,attr: {id: $data['name'], name: $data['name'] }">
 		<!-- /ko -->
-		<!-- ko if: $data[2]() == 1 -->
+		<!-- ko if: $data['radio']() == 1 -->
 			<!-- Print the radio buttons. -->
 			<br/>
-			<div data-bind="foreach: $data[3]">
+			<div data-bind="foreach: $data['options']">
 				<label class="radio-inline">
-					<input type="radio" data-bind="value: $data[0], attr: {id: $parent[0],name: $parent[1] }">
+					<input type="radio" data-bind="value: $data[0], attr: {id: $parent['name'],name: $parent['post_name'] }">
 					<span data-bind="text: $data[1]"></span>
 				</label>
 			</div>

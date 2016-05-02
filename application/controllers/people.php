@@ -31,13 +31,14 @@ class people extends CI_Controller {
 	{
         // This function collects all the data from the model to display a few tables to the user.
         
-		$gear_fields=$this->get_borrow_table(FALSE);
-		$output['data'][0]['page_title']='People Information';
+		$fields=$this->people_model->get_fields();
 
-		$output['data'][0]['row_data']= $this->u_model->get_table('people');
-		$output['data'][0]['title']='All people';
-		$output['data'][0]['subtitle']='People in the database are visible here unless they are deleted.';
-		$output['data'][0]['Fields']=$gear_fields;
+		$output['data']['row_data']= $this->u_model->get_table('people');
+		$output['data']['title']='People Information';
+		$output['data']['subtitle']='People in the database are visible here unless they are deleted.';
+		$output['data']['fields']=$fields;
+		$output['data']['url']='';
+		$output['data']['url_id']='';
 		// dbg($output);
         render('gear/view',$output);
 	}
@@ -45,13 +46,15 @@ class people extends CI_Controller {
 	{
         // Collect the about every entry and display it in a table so that the user can choose which entry to edit.
 
-		$gear_fields=$this->get_borrow_table();
-		$output['data'][0]['page_title']='Edit people';
+		$fields=$this->people_model->get_fields(TRUE);
+		$output['data']['page_title']='Edit people';
 
-		$output['data'][0]['row_data']= $this->people_model->get_stuff();
-		$output['data'][0]['title']='Edit people';
-		$output['data'][0]['subtitle']='All people in the database are visible here.';
-		$output['data'][0]['Fields']=$gear_fields;
+		$output['data']['row_data']= $this->people_model->get_stuff();
+		$output['data']['title']='Edit people';
+		$output['data']['subtitle']='All people in the database are visible here.';
+		$output['data']['fields']=$fields;
+		$output['data']['url']='edit/';
+		$output['data']['url_id']='id';
 		// dbg($output);
         render('gear/view',$output);
 	}

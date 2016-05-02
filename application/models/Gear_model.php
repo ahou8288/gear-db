@@ -9,7 +9,7 @@ class gear_model extends CI_Model {
         $this->load->database();
     }
     
-    function get_fields($deleted=FALSE,$retired=FALSE,$radio=FALSE){
+    function get_fields($deleted=FALSE,$retired=FALSE,$radio=FALSE,$availiable=FALSE){
         $query = $this->db->query('
             SHOW FIELDS
             FROM gear');
@@ -52,7 +52,11 @@ class gear_model extends CI_Model {
             $field_name=$sql_field['Field'];
             if (!isset($non_display[$field_name])){ //Only deal with the fields which will be displayed
                 $entry['name']=$field_name;// Create a space to build all the info needed
-                $entry['display']=$display_names[$field_name];
+                if (array_key_exists($field_name, $display_names)){
+                    $entry['display']=$display_names[$field_name];
+                } else {
+                    $entry['display']=$field_name;
+                }
                 if ($radio){
                     if (isset($radio_inputs[$field_name])){ // Fill in all the info about the radio buttons
                         $radio_info=&$radio_inputs[$field_name];
@@ -67,7 +71,9 @@ class gear_model extends CI_Model {
                 array_push($output,$entry);
             }
         }
-
+        if ($availiable) array_push($output, array(
+            'name'=>'availiable',
+            'display'=>'Currently Borrowed'));
         // dbg($output);
         return $output;
     }
@@ -88,7 +94,7 @@ class gear_model extends CI_Model {
             AND gear.deleted = 0
             GROUP BY `id`
             HAVING (min(`returned`) = 1)');
-        $tmp=$query->result();
+        $tmp=$query->result_array();
         foreach($tmp as $row){ //store all the rows from the first query
             array_push($data,$row);
         }
@@ -102,7 +108,7 @@ class gear_model extends CI_Model {
             WHERE (`returned` IS NULL)
             AND gear.retired = 0
             AND gear.deleted = 0;');
-        $tmp=$query->result();
+        $tmp=$query->result_array();
         foreach($tmp as $row){ //add the rows from the second query to the rows from the first query
             array_push($data,$row);
         }

@@ -1,7 +1,7 @@
 All fields from model or controller.
 
 Tables list;
-gear view - fields + retired, fields
+--gear view - fields + retired, fields
 edit gear - fields + retired + deleted
 
 borrow view - fields from borrow and gear name and gear category

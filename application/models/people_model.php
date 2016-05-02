@@ -8,13 +8,12 @@ class People_model extends CI_Model {
         $this->load->database();
     }
     
-    function get_fields($deleted=FALSE){
+    function get_fields($deleted=FALSE,$radio=FALSE){
         $query = $this->db->query('
             SHOW FIELDS
             FROM people');
 
         $tmp=$query->result_array();
-        array_push($tmp,array('Field'=>'cat'));
 
         // A list of the fields which should not be displayed
         $non_display=array('id'=>FALSE);
@@ -65,7 +64,7 @@ class People_model extends CI_Model {
             }
         }
 
-        dbg($output);
+        // dbg($output);
         return $output;
     }
 

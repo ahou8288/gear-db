@@ -16,40 +16,32 @@ class Gear extends CI_Controller {
 		}
 	}
 
-	public function return_gear_fields($deleted=FALSE,$retired=FALSE){
-		//Return a list of the fields to display when viewing gear tables
-		$gear_fields=array(
-			array('Fields'=>'name',		'DisplayName'=>'Gear Name'),
-			array('Fields'=>'cat',		'DisplayName'=>'Category'),
-			array('Fields'=>'age',		'DisplayName'=>'Item Age'),);
-		if ($retired) array_push($gear_fields,array('Fields'=>'retired',	'DisplayName'=>'Retired'));
-		if ($deleted) array_push($gear_fields,array('Fields'=>'deleted',	'DisplayName'=>'Deleted')); //only show the deleted field if the function argument is TRUE, otherwise by default leave it out.
-		return $gear_fields;
-	}
-
 	public function view()
 	{
         // This function collects all the data from the model to display a few tables to the user.
-		$this->gear_model->get_fields(TRUE,TRUE,TRUE);
-		$output['data'][0]['page_title']="Open the table you want to view";
-
-		$gear_fields=$this->return_gear_fields();
+		$gear_fields=$this->gear_model->get_fields(FALSE,TRUE,FALSE,TRUE);
 		$all_gear_table= $this->u_model->get_table('gear');
 
-		$output['data'][0]['row_data']= $this->gear_model->get_avaliable();
-		$output['data'][0]['title']='Locker Gear';
-		$output['data'][0]['subtitle']='Gear which is inside the locker and availiable for borrowing';
-		$output['data'][0]['Fields']=$gear_fields;
-		// dbg($output);
-		$output['data'][1]['row_data']= $this->u_model->get_table('gear',array('retired'=>'0'));
-		$output['data'][1]['title']='All Current Gear';
-		$output['data'][1]['subtitle']='All the gear surmc currently has (but not the gear that was retired and removed).';
-		$output['data'][1]['Fields']=$gear_fields;
+		$availiable_gear=$this->gear_model->get_avaliable();
+		$availiable_list=array();
+		foreach($availiable_gear as $gear_item){
+			$availiable_list[$gear_item['id']]=TRUE;
+		}
 
-		$output['data'][2]['row_data']=$all_gear_table;
-		$output['data'][2]['title']='All Gear in Database';
-		$output['data'][2]['subtitle']='All gear, including gear which is retired (and no longer in the locker).';
-		$output['data'][2]['Fields']=$this->return_gear_fields(FALSE,TRUE);
+		foreach($all_gear_table as $index => $gear_item){
+			if (array_key_exists($gear_item['id'], $availiable_list)){
+				$all_gear_table[$index]['availiable']="Yes";
+			} else {
+				$all_gear_table[$index]['availiable']="No";
+			}
+		}
+
+		$output['data']['row_data']=$all_gear_table;
+		$output['data']['title']='All Gear';
+		$output['data']['subtitle']='This table displays all the gear in the database.';
+		$output['data']['fields']=$gear_fields;
+		$output['data']['url']='';
+		$output['data']['url_id']='';
 		// dbg($output);
         render('gear/view',$output);
 	}
@@ -57,14 +49,14 @@ class Gear extends CI_Controller {
 	public function edit_table(){
         // Collect the about every entry and display it in a table so that the user can choose which entry to edit.
 
-		$output['data'][0]['page_title']="Click on the gear item you want to edit";
+		$gear_fields=$this->gear_model->get_fields(TRUE,TRUE,FALSE,FALSE);
 
-		$gear_fields=$this->return_gear_fields(TRUE,TRUE);
-
-		$output['data'][0]['row_data']=$this->gear_model->get_stuff();
-		$output['data'][0]['title']='Edit gear';
-		$output['data'][0]['subtitle']='Click on a row to edit the gear item.';
-		$output['data'][0]['Fields']=$gear_fields;
+		$output['data']['row_data']=$this->gear_model->get_stuff();
+		$output['data']['title']='Edit gear';
+		$output['data']['subtitle']='Click on a row to edit the gear item.';
+		$output['data']['fields']=$gear_fields;
+		$output['data']['url']='edit/';
+		$output['data']['url_id']='id';
         render('gear/view',$output);
 	}
 
@@ -72,48 +64,37 @@ class Gear extends CI_Controller {
 	{
 		// This function deals with editing an entry or creating a new entry.
 
-		// Collect the options that should be generated as radio buttons in the web page.
-		$categories=$this->u_model->get_cat();
-		$yes_no=array(
-			array(0,'No'),
-			array(1,'Yes'),
-			);
-
 		//Create an array with a list of fields.
-		$output['data']['fields_list']=array(
-				'name'=>array('Gear Name','name',0),
-				'age'=>array('Item Age','age',0),
-				'type'=>array('Category','type',1, $categories), //As this is a radio button input put a 0 instead of a 1 and include all the options to display
-				'retired'=>array('Retired','retired',1, $yes_no),//As this is a radio button input put a 0 instead of a 1 and include all the options to display
-				'deleted'=>array('Deleted','deleted',1, $yes_no),//As this is a radio button input put a 0 instead of a 1 and include all the options to display
-			);
-
+		$output['data']['fields_list']=$this->gear_model->get_fields(TRUE,TRUE,TRUE,FALSE);
 		if ($id){
 			$output['data']['title']="Edit gear in the database";
 			//Collect the information specific to this gear item.
 			$output['data']['id']=$id;
 			$output['data']['url']=base_url("/gear/save/".$id);
 			$gear_data= $this->gear_model->get_all_id($id);
-
 			foreach ($output['data']['fields_list'] as $temp_num => $items){//move the data from a seperate array into the same array as the fields.
 				//The is way each field also has a value associated with it.
-				array_push($output['data']['fields_list'][$temp_num],$gear_data[$temp_num]);
+				if ($items['radio']=='0'){
+					$output['data']['fields_list'][$temp_num]['value']=$gear_data[$items['name']];
+				} else {
+					$output['data']['fields_list'][$temp_num]['value']=$gear_data[$items['post_name']];
+				}
 			}
 		} else {
 			foreach ($output['data']['fields_list'] as $temp_num => $items){
 				//put a default value into each field.
-				array_push($output['data']['fields_list'][$temp_num],'');
+				$output['data']['fields_list'][$temp_num]['value']='';
 			}
 			$output['data']['title']="Insert new gear into the database";
 			$output['data']['url']=base_url("/gear/save/");
 		}
-
+		// dbg($output);
         render('gear/edit',$output);
 	}
 
 	public function save($id=null){
 		// Save the information that was added/ changed when editing.
-		
+		// dbg($_POST);
 		if($id){
 			$this->gear_model->edit_asset($_POST,$id);
 		} else {
@@ -128,8 +109,6 @@ class Gear extends CI_Controller {
         $output['message']="Database backup download initiated.";
         render('gear/download',$output);
 	}
-
-
 
 	public function download()
 	{
