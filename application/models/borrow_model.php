@@ -8,6 +8,54 @@ class borrow_model extends CI_Model {
         $this->load->database();
     }
     
+    function get_fields(){
+        $query = $this->db->query('
+            SHOW FIELDS
+            FROM borrow');
+
+        $tmp=$query->result_array();
+        array_push($tmp,array('Field'=>'cat'));
+        array_push($tmp,array('Field'=>'gear_name'));
+        array_push($tmp,array('Field'=>'name'));
+
+        // A list of the fields which should not be displayed
+        $non_display=array(
+            'id'=>FALSE,
+            'borrow_group_id'=>FALSE,
+            'person_id'=>FALSE,
+            'gear_id'=>FALSE,
+            'deleted'=>FALSE);
+
+        // These names appear at the top of datatables as column headings
+        $display_names=array(
+            'name'=>'Borrower Name',
+            'gear_name'=>'Item Name',
+            'cat'=>'Category',
+            'deposit'=>'Deposit',
+            'date_borrow'=>'Date of Borrowing',
+            'date_return'=>'Date of Returning',
+            'returned'=>'Returned',
+            'comment'=>'Comment',);
+
+        $output=array();
+
+        foreach ($tmp as $sql_field){
+            $field_name=$sql_field['Field'];
+            if (!array_key_exists($field_name, $non_display)){ //Only deal with the fields which will be displayed
+                $entry['name']=$field_name;// Create a space to build all the info needed
+                if (array_key_exists($field_name, $display_names)){
+                    $entry['display']=$display_names[$field_name];
+                } else {
+                    $entry['display']=$field_name;
+                }
+                array_push($output,$entry);
+            }
+        }
+
+        dbg($output);
+        return $output;
+    }
+
     function largest_borrow_number()
     {
         // This function returns the largest borrow group id that is currently in the database.

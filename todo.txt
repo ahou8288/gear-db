@@ -6,7 +6,7 @@ Change code to handle changes to fields in a uniform way (all gear tables from o
 	Make tables all get fields from controller
 	Make tables have select inputs at the bottom
 	Make controllers get and send fields
-	Make models return fiedls
+	Make models return fields
 
 Finished:
 --Make titles and subtitles clearer

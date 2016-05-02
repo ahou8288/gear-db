@@ -18,6 +18,7 @@ class borrow extends CI_Controller {
 	}
 
 	public function borrow(){
+		$this->borrow_model->get_fields();
 		// Borrow function:
 		// get's the data needed to show the user the options for borrowing
 		// it gets a list of gear and people

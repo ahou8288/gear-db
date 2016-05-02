@@ -37,7 +37,7 @@ class gear_model extends CI_Model {
             'post_field'
             );
 
-        Also, I want the input for category to post to the type column, so the post_filed option is used for that.
+        Also, I want the input for category to post (during form input) to the type column, so the post_filed option is used for that.
         */
         $yes_no=array(array(0,'No'),array(1,'Yes'));
         $radio_inputs=array(
@@ -68,7 +68,7 @@ class gear_model extends CI_Model {
             }
         }
 
-        dbg($output);
+        // dbg($output);
         return $output;
     }
 
