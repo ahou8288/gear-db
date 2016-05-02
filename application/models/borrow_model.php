@@ -8,7 +8,7 @@ class borrow_model extends CI_Model {
 		$this->load->database();
 	}
 	
-	function get_fields(){
+	function get_fields($returned=TRUE,$deposit=TRUE,$comment=TRUE){
 		$query = $this->db->query('
 			SHOW FIELDS
 			FROM borrow');
@@ -16,6 +16,7 @@ class borrow_model extends CI_Model {
 		$tmp=$query->result_array();
 		array_push($tmp,array('Field'=>'name'));
 		array_push($tmp,array('Field'=>'gear_name'));
+		
 		// array_push($tmp,array('Field'=>'cat'));
 
 		// A list of the fields which should not be displayed
@@ -23,10 +24,11 @@ class borrow_model extends CI_Model {
 			'id'=>FALSE,
 			'borrow_group_id'=>FALSE,
 			'person_id'=>FALSE,
-			'comment'=>FALSE,
-			'deposit'=>FALSE,
 			'gear_id'=>FALSE,
 			'deleted'=>FALSE);
+		if (!$returned) $non_display['returned']=FALSE;
+		if (!$deposit) $non_display['deposit']=FALSE;
+		if (!$comment) $non_display['comment']=FALSE;
 
 		// These names appear at the top of datatables as column headings
 		$display_names=array(

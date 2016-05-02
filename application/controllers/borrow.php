@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class borrow extends CI_Controller {
 	public function __construct()
 	{
-        parent::__construct();
-        //Load the models (which handle database queries)
+		parent::__construct();
+		//Load the models (which handle database queries)
 		$this->load->model('gear_model');
 		$this->load->model('people_model');
 		$this->load->model('borrow_model');
@@ -23,7 +23,7 @@ class borrow extends CI_Controller {
 		// it gets a list of gear and people
 		$output['data']['gear']= $this->gear_model->get_avaliable();
 		$output['data']['people']= $this->u_model->get_table('people');
-        render('borrow/borrow',$output); //Send the data to the webpage
+		render('borrow/borrow',$output); //Send the data to the webpage
 	}
 
 	public function save($id=null){
@@ -68,18 +68,18 @@ class borrow extends CI_Controller {
 
 	public function view()
 	{
-        // This function collects all the data from the model to display a few tables to the user.
+		// This function collects all the data from the model to display a few tables to the user.
 
-		$borrow_fields=$this->borrow_model->get_fields(); //Get the fields which we normally display from a function
+		$borrow_fields=$this->borrow_model->get_fields(TRUE,FALSE,FALSE); //Get the fields which we normally display from a function
 		
-		$overdue_borrows=$this->borrow_model->get_overdue(14);
 		$all_borrows=$this->borrow_model->get_stuff();
 
+		// Fill in whether gear is overdue or not
+		$overdue_borrows=$this->borrow_model->get_overdue(14);
 		$overdue_list=array();
 		foreach($overdue_borrows as $overdue_item){
 			$overdue_list[$overdue_item['id']]=TRUE;
 		}
-
 		foreach($all_borrows as $index => $borrow_item){
 			if (array_key_exists($borrow_item['id'], $overdue_list)){
 				$all_borrows[$index]['overdue']="Yes";
@@ -96,16 +96,20 @@ class borrow extends CI_Controller {
 		$output['data']['url_id']='';
 
 		// dbg($output);
-        render('gear/view',$output); //Send all the data to the view to be made into a webpage
+		render('gear/view',$output); //Send all the data to the view to be made into a webpage
 	}
 
 	public function view_return()
 	{
 		// This function shows a table which lets users pick out gear to return.
-		$output['data']['rows']= $this->borrow_model->get_stuff(array('returned'=>'0'));
-		$output['data']['Fields']=$this->get_borrow_table();
+		$output['data']['row_data']= $this->borrow_model->get_stuff(array('returned'=>'0'));
+		$output['data']['title']='Search for the gear you want to return';
+		$output['data']['subtitle']='Click on gear to return it';
+		$output['data']['fields']=$this->borrow_model->get_fields(FALSE);
+		$output['data']['url']='gear_return/';
+		$output['data']['url_id']='borrow_group_id';
 		// dbg($output);
-        render('borrow/return_table',$output);
+		render('gear/view',$output);
 	}
 
 	public function gear_return($id){
