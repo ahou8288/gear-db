@@ -71,28 +71,29 @@ class borrow extends CI_Controller {
 	{
         // This function collects all the data from the model to display a few tables to the user.
 
-		$output['data'][0]['page_title']='Click on a heading to view the tables.';
-		$gear_fields=$this->get_borrow_table(); //Get the fields which we normally display from a function
+		$fields=$this->get_borrow_table(); //Get the fields which we normally display from a function
+		
+		$overdue_borrows=$this->borrow_model->get_overdue(14);
+		$all_borrows=$this->borrow_model->get_stuff();
 
-		$output['data'][0]['row_data']= $this->borrow_model->get_stuff(array('returned'=>'0')); // Data in the table is stored here
-		$output['data'][0]['title']='Borrowed Gear'; //Heading for the table is stored here
-		$output['data'][0]['subtitle']='Borrowed gear which has not been returned yet'; //Sub heading here
-		$output['data'][0]['Fields']=$gear_fields; // A list of fields for the table to render.
+		$overdue_list=array();
+		foreach($overdue_borrows as $overdue_item){
+			$overdue_list[$overdue_item['id']]=TRUE;
+		}
 
-		$output['data'][1]['row_data']= $this->borrow_model->get_stuff();
-		$output['data'][1]['title']='All borrowing events';
+		foreach($all_borrows as $index => $borrow_item){
+			if (array_key_exists($borrow_item['id'], $overdue_list)){
+				$all_borrows[$index]['overdue']="Yes";
+			} else {
+				$all_borrows[$index]['overdue']="No";
+			}
+		}
+
+		$output['data'][1]['row_data']= $all_borrows;
+		$output['data'][1]['title']='Borrowed Gear Information';
 		$output['data'][1]['subtitle']='All borrow events recorded in this system are included in this table';
-		$output['data'][1]['Fields']=$gear_fields;
+		$output['data'][1]['Fields']=$fields;
 
-		$output['data'][2]['row_data']= $this->borrow_model->get_stuff(array('returned'=>'1'));
-		$output['data'][2]['title']='Previously Returned Gear';
-		$output['data'][2]['subtitle']='This is a record of when gear has been returned';
-		$output['data'][2]['Fields']=$gear_fields;
-
-		$output['data'][3]['row_data']= $this->borrow_model->get_overdue(14);
-		$output['data'][3]['title']='Overdue Gear';
-		$output['data'][3]['subtitle']='Borrowed gear which has not been returned yet and is overdue, and also gear that was overdue when returned';
-		$output['data'][3]['Fields']=$gear_fields;
 		// dbg($output);
         render('borrow/view',$output); //Send all the data to the view to be made into a webpage
 	}

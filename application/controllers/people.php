@@ -35,7 +35,7 @@ class people extends CI_Controller {
 
 		$output['data']['row_data']= $this->u_model->get_table('people');
 		$output['data']['title']='People Information';
-		$output['data']['subtitle']='People in the database are visible here unless they are deleted.';
+		$output['data']['subtitle']='People in the database are visible here.';
 		$output['data']['fields']=$fields;
 		$output['data']['url']='';
 		$output['data']['url_id']='';
