@@ -2,19 +2,12 @@ All fields from model or controller.
 
 Tables list;
 --gear view - fields + retired, fields
-edit gear - fields + retired + deleted
+--edit gear - fields + retired + deleted
 
-borrow view - fields from borrow and gear name and gear category
+--borrow view - fields from borrow and gear name and gear category
 borrow - people without deleted, gear without deleted and retired
-return_table - same as borrow view
+--return_table - same as borrow view
 return - gear without deleted and retired
 
-people view - people without deleted
-edit people - people with deleted
-
-Plan -
-All fields only stored in models
-Models send data which is ready for javascript.
-models -> controllers -> views
-
-eg all gear fields come from one function
+--people view - people without deleted
+--edit people - people with deleted

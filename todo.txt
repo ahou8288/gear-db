@@ -1,15 +1,10 @@
 Todo:
-Connvert all tables into one table with buttons for categories
 When viewing the borrow tables have one line for each borrow_group_id with multiple items show at once.
-Add an overdue field to borrow tables
 Change code to handle changes to fields in a uniform way (all gear tables from one fields list if possible)
-	Make tables all get fields from controller
-	Make tables have select inputs at the bottom
-	Make new person and new gear page
-	Make controllers get and send fields
-	Make models return fields
 
 Finished:
+--Add an overdue field to borrow tables
+--Connvert all tables into one table with buttons for categories
 --Make titles and subtitles clearer
 --Don't show retired in view tables
 --Date of returning changed to not returned in javascript
@@ -31,10 +26,10 @@ Finished:
 --People view
 --Remove ID columns from tables
 --Rigid categories buttons for selecting
+--Homepage
 --Radio buttons already selected when editing
 
 Features for later:
-**Buttons for categories, use vertical button group inside each accordian.
 **Only show stuff that happened recently /sort tables by date by default
 **Email system (email people who have overdue gear from the website itself)
 **Help pages
@@ -45,7 +40,6 @@ Features for later:
 **Public Information (eg, view what's in the locker and what's due back soon without logging in)
 **Blacklist people (just delete people for now)
 **Automatic backup
-**Homepage
 **Borrow duration
 
 Commenting:

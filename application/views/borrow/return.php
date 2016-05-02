@@ -5,7 +5,7 @@
 	</div>
 
 	<h4>Gear still to be returned</h4>
-	<table id='dataTable' class='table'></table>
+	<table id='dataTable1' class='table'></table>
 
 	<input type="hidden" name="selectedGear" data-bind="value: ko.toJSON(selectedGear)" />
 

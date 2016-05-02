@@ -8,7 +8,7 @@ class borrow_model extends CI_Model {
 		$this->load->database();
 	}
 	
-	function get_fields($returned=TRUE,$deposit=TRUE,$comment=TRUE){
+	function get_fields($returned=TRUE,$deposit=TRUE,$comment=TRUE,$overdue_display=TRUE){
 		$query = $this->db->query('
 			SHOW FIELDS
 			FROM borrow');
@@ -26,7 +26,10 @@ class borrow_model extends CI_Model {
 			'person_id'=>FALSE,
 			'gear_id'=>FALSE,
 			'deleted'=>FALSE);
-		if (!$returned) $non_display['returned']=FALSE;
+		if (!$returned){
+			$non_display['returned']=FALSE;
+			$non_display['date_return']=FALSE;
+		}
 		if (!$deposit) $non_display['deposit']=FALSE;
 		if (!$comment) $non_display['comment']=FALSE;
 
@@ -55,7 +58,9 @@ class borrow_model extends CI_Model {
 				array_push($output,$entry);
 			}
 		}
-
+		if ($overdue_display) array_push($output, array(
+			'name'=>'overdue',
+			'display'=>'Overdue'));
 		// dbg($output);
 		return $output;
 	}

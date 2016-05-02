@@ -51,21 +51,6 @@ class borrow extends CI_Controller {
 		redirect('borrow/view'); // Send the user to look at borrow tables once finished.
 	}
 
-	public function get_borrow_table(){
-		// This function returns a list of fields that are displayed to the user.
-		// It is neater to store them in a seperate function (less code clutter)
-		return array(
-				array('Fields'=>'name',				'DisplayName'=>'Borrower Name'),
-				array('Fields'=>'gear_name',		'DisplayName'=>'Item Name'),
-				array('Fields'=>'deposit',			'DisplayName'=>'Deposit'),
-				array('Fields'=>'date_borrow',		'DisplayName'=>'Date of Borrowing'),
-				array('Fields'=>'date_return',		'DisplayName'=>'Date of Returning'),
-				array('Fields'=>'returned',			'DisplayName'=>'Returned'),
-				// array('Fields'=>'borrow_group_id',	'DisplayName'=>'Borrow Group Number'),
-				array('Fields'=>'comment',			'DisplayName'=>'Comment'),
-			);
-	}
-
 	public function view()
 	{
 		// This function collects all the data from the model to display a few tables to the user.
@@ -105,7 +90,7 @@ class borrow extends CI_Controller {
 		$output['data']['row_data']= $this->borrow_model->get_stuff(array('returned'=>'0'));
 		$output['data']['title']='Search for the gear you want to return';
 		$output['data']['subtitle']='Click on gear to return it';
-		$output['data']['fields']=$this->borrow_model->get_fields(FALSE);
+		$output['data']['fields']=$this->borrow_model->get_fields(FALSE,TRUE,TRUE,FALSE);
 		$output['data']['url']='gear_return/';
 		$output['data']['url_id']='borrow_group_id';
 		// dbg($output);
@@ -117,6 +102,7 @@ class borrow extends CI_Controller {
 		// This function sends that information to the return page so that the user can choose which items to return.
 		if ($id){
 			$output['data']['gear']=$this->borrow_model->borrow_group_gear($id);
+			$output['data']['fields']=$this->gear_model->get_fields();
 			// dbg($output);
 			render('borrow/return',$output);
 		} else {

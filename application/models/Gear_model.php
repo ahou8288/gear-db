@@ -73,7 +73,7 @@ class gear_model extends CI_Model {
 		}
 		if ($availiable) array_push($output, array(
 			'name'=>'availiable',
-			'display'=>'Currently Borrowed'));
+			'display'=>'Currently _gred'));
 		// dbg($output);
 		return $output;
 	}

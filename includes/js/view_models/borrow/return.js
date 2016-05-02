@@ -7,11 +7,12 @@ var ViewModel = function(data){
 	self.gearArray = ko.observableArray();
 	self.returnedGear = ko.observableArray();
 	self.selectedGear = ko.observableArray();
-	
+	self.fieldsList = ko.observableArray();
+
 	self.init = function() {
 		// Create the data tables
 		self.generateArrays();
-		self.refreshDatatable();
+		self.refreshDatatable1();
 		self.refreshDatatable2();
 		
 	};
@@ -25,81 +26,64 @@ var ViewModel = function(data){
 				self.returnedGear.push(new RecordViewModel(data['gear'][index]));
 			}
 		}
+
+		for(var index in data['fields']){
+			self.fieldsList.push(new RecordViewModel(data['fields'][index]));
+		}
 	}
 
 
-	self.refreshDatatable = function() {
+	self.refreshDatatable1 = function() {
 		//Create the first dataTable
-		self.table = $("#dataTable").DataTable({
+		columnsArr = [];
+		for(var index in self.fieldsList()){
+			var field=self.fieldsList()[index]['name']();
+			var functionStr="return row['"+field+"'];";
+			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
+
+			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
+					title: self.fieldsList()[index]['display']() //Assign the heading of the field to the display name
+				});
+		}
+
+		self.table = $("#dataTable1").DataTable({
 			data: self.gearArray(),
-	        columns: [/*
-	            { 	"data": function(row){
-		        		return row['id'];
-	            	}, 
-		            title: "ID" 
-		        },*/
-		        { 	"data": function(row){
-		        		return row['age'];
-	            	}, 
-		            title: "Age" 
-		        },
-		        { 	"data": function(row){
-		        		return row['name'];
-	            	}, 
-		            title: "Name" 
-		        },
-		        { 	"data": function(row){
-		        		return row['cat'];
-	            	}, 
-		            title: "Category" 
-		        }
-	        ], 
+			columns: columnsArr,
 			stateSave: true,
 			dom: '<"left"l>fBrtip',
 			buttons: [],
 			fixedHeader: true
-	        // "pagingType": "full_numbers"
+			// "pagingType": "full_numbers"
 		});
 
-		$("#dataTable").on('click', 'tbody tr', function(e){
+		$("#dataTable1").on('click', 'tbody tr', function(e){
 			// This is called when a row is clicked
 			// Manage the selection/removal of gear
-	        $(this).toggleClass('row_selected');
-	        self.clickedItem=ko.observable(self.table.row( this ).data());
-	        if ((self.selectedGear.indexOf(self.clickedItem()) < 0)){
-	        	self.selectedGear.push(self.clickedItem());
-	        } else{
-	        	self.selectedGear.remove(self.clickedItem());
-	        }
+			$(this).toggleClass('row_selected');
+			self.clickedItem=ko.observable(self.table.row( this ).data());
+			if ((self.selectedGear.indexOf(self.clickedItem()) < 0)){
+				self.selectedGear.push(self.clickedItem());
+			} else{
+				self.selectedGear.remove(self.clickedItem());
+			}
 		});
 	}
 
 	self.refreshDatatable2 = function() {
 		// Generate the other datatable
+		columnsArr = [];
+		for(var index in self.fieldsList()){
+			var field=self.fieldsList()[index]['name']();
+			var functionStr="return row['"+field+"'];";
+			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
+
+			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
+					title: self.fieldsList()[index]['display']() //Assign the heading of the field to the display name
+				});
+		}
 		self.table2 = $("#dataTable2").DataTable({
 			data: self.returnedGear(),
-	        columns: [/*
-	            { 	"data": function(row){
-		        		return row['id'];
-	            	}, 
-		            title: "ID" 
-		        },*/
-		        { 	"data": function(row){
-		        		return row['age'];
-	            	}, 
-		            title: "Age" 
-		        },
-		        { 	"data": function(row){
-		        		return row['name'];
-	            	}, 
-		            title: "Name" 
-		        },
-		        { 	"data": function(row){
-		        		return row['cat'];
-	            	}, 
-		            title: "Category" 
-		        }
-	        ], 
+			columns: columnsArr,
 			stateSave: true,
 			dom: '<"left"l>fBrtip',
 			buttons: [],
