@@ -63,9 +63,10 @@ var ViewModel = function(data){
 	                            .search( val ? '^'+val+'$' : '', true, false )
 	                            .draw();
 	                    } );
-	 
 	                column.data().unique().sort().each( function ( d, j ) {
-	                    select.append( '<option value="'+d+'">'+d+'</option>' )
+	                	if(d.search('div')==-1){
+	                    	select.append( '<option value="'+d+'">'+d+'</option>' )
+	                	}
 	                } );
             	} );
         	}
