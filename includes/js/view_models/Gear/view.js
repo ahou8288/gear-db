@@ -25,15 +25,7 @@ var ViewModel = function(data){
 		columnsArr = [];
 		for(var index in self.fieldsList()){
 			var field=self.fieldsList()[index]['name'];
-			if (field==='deleted'||field==='retired'){
-				var functionStr="if (row['"+field+"']==1){return 'Yes';}else{return 'No';}";
-			// } else if (field==='returned'){
-			// 	var functionStr="if (row['"+field+"']==1){return 'Yes';}else{return 'No';}";
-			} else if (field==='date_return'){
-				var functionStr="if (row['date_return']=='0000-00-00'){return 'Not returned';}else{return row['date_return'];}";
-			} else {
-				var functionStr="return row['"+field+"'];";
-			}
+			var functionStr="return row['"+field+"'];";
 			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
 
 			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
@@ -47,7 +39,7 @@ var ViewModel = function(data){
 			columns: columnsArr, 
 			stateSave: false,
 			dom: '<"left"l>fBrtip',
-			buttons: [],
+			buttons: ['colvis'],
 			fixedHeader: true,
 			initComplete: function () {
 				this.api().columns().every( function () {
@@ -101,9 +93,38 @@ var RecordViewModel = function(data){
 
 	for(var field in data){
 		var val = data[field];
-		// self[field] = ko.observable(val);
-		self[field] = val;
-		
+
+		self[field] = process_value(field,val);
+		console.log(field);
 	}
 
+}
+
+function process_value(field,val){
+	if (val.search('<div>')!=-1){
+		var return_str='';
+		// Split out keywork
+		// return <div>+process_value(keyword)+</div> for each keyword
+		for (var ind1 in val.split('<div>')){
+			var temp_split1=val.split('<div>')[ind1]
+			if (temp_split1!=''){
+				var correct_string=temp_split1.split('</div>')[0]
+				return_str=return_str+'<div>'+process_value(field,correct_string)+'</div>'
+			}
+		}
+		return return_str
+	} else {
+		if (field=='returned' || field=='deleted' || field=='retired'){
+			if (val==1){
+				return 'Yes'
+			} else if (val==0) {
+				return 'No'
+			}
+		} else if (field=='date_return'){
+			if (val=='0000-00-00'){
+				return 'Not returned'
+			}
+		}
+		return val;
+	}
 }
