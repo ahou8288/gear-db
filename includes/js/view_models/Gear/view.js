@@ -37,39 +37,55 @@ var ViewModel = function(data){
 			var tempFunc=Function("row",functionStr);  //Create a tempoary function to return the right field in each column
 
 			columnsArr.push({"data": tempFunc, //Assign the data of this column to the return value of the function
-		            title: self.fieldsList()[index]['display'] //Assign the heading of the field to the display name
-		        });
+					title: self.fieldsList()[index]['display'] //Assign the heading of the field to the display name
+				});
 		}
 
 		//Put the data into a table
 		self.table = $("#dataTable").DataTable({
 			data: self.data_array(),
-	        columns: columnsArr, 
+			columns: columnsArr, 
 			stateSave: false,
 			dom: '<"left"l>fBrtip',
 			buttons: [],
 			fixedHeader: true,
-	        initComplete: function () {
-	            this.api().columns().every( function () {
-	                var column = this;
-	                var select = $('<select class="form-control"><option value=""></option></select>')
-	                    .appendTo( $(column.footer()).empty() )
-	                    .on( 'change', function () {
-	                        var val = $.fn.dataTable.util.escapeRegex(
-	                            $(this).val()
-	                        );
+			initComplete: function () {
+				this.api().columns().every( function () {
+					var column = this;
+					var select = $('<select class="form-control"><option value=""></option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
 	 
-	                        column
-	                            .search( val ? '^'+val+'$' : '', true, false )
-	                            .draw();
-	                    } );
-	                column.data().unique().sort().each( function ( d, j ) {
-	                	if(d.search('div')==-1){
-	                    	select.append( '<option value="'+d+'">'+d+'</option>' )
-	                	}
-	                } );
-            	} );
-        	}
+							column
+								.search( val ? val : '', true, false )
+								.draw();
+						} );
+					var already_used=Array();
+					column.data().unique().sort().each( function ( d, j ) {
+
+						if(d.search('div')==-1){
+							if (already_used[d]!=true){
+								already_used[d]=true
+								select.append( '<option value="'+d+'">'+d+'</option>' )
+							}
+						} else {
+							for (var ind1 in d.split('<div>')){
+								var temp_split1=d.split('<div>')[ind1]
+								if (temp_split1!=''){
+									var correct_string=temp_split1.split('</div>')[0]
+									if (already_used[correct_string]!=true){
+										select.append( '<option value="'+correct_string+'">'+correct_string+'</option>' )
+										already_used[correct_string]=true
+									}
+								}
+							}
+						}
+					} );
+				} );
+			}
 		});
 		
 		$("#dataTable").on('click', 'tbody tr', function(e){
