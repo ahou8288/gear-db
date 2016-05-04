@@ -96,9 +96,9 @@ class Gear extends CI_Controller {
 		// Save the information that was added/ changed when editing.
 		// dbg($_POST);
 		if($id){
-			$this->gear_model->edit_asset($_POST,$id);
+			$this->gear_model->edit_gear($_POST,$id);
 		} else {
-			$this->gear_model->save_new_asset($_POST);
+			$this->gear_model->save_new_gear($_POST);
 		}
 		redirect('gear/edit_table');
 	}

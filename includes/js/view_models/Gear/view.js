@@ -41,6 +41,7 @@ var ViewModel = function(data){
 			dom: '<"left"l>fBrtip',
 			buttons: ['colvis'],
 			fixedHeader: true,
+        	"order": [[ 0, "desc" ]], //Order by first column
 			initComplete: function () {
 				this.api().columns().every( function () {
 					var column = this;
@@ -95,7 +96,6 @@ var RecordViewModel = function(data){
 		var val = data[field];
 
 		self[field] = process_value(field,val);
-		console.log(field);
 	}
 
 }

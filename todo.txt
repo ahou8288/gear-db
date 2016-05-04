@@ -1,9 +1,10 @@
 Todo:
-**Only show stuff that happened recently /sort borrow or return_table tables by date by default
-check that every function in the models acutally gets called
+datatables go off the edge of the screen if they have many headings or the screen is small. Fix with horizontal scroll.
 
 Finished:
---category in borrow/view
+--Only show stuff that happened recently /sort borrow or return_table tables by date by default
+--Check that every function in the models acutally gets called
+--Category in borrow/view
 --When viewing the borrow tables have one line for each borrow_group_id with multiple items show at once.
 --Change code to handle changes to fields in a uniform way (all gear tables from one fields list if possible)
 --Add an overdue field to borrow tables

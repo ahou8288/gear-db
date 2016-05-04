@@ -9,7 +9,6 @@ class u_model extends CI_Model {
 	}
 	public function get_table($table,$array=array()){
 		//This function is used to return info about a table specified by the user.
-
 		//USAGE;
 		//$this->u_model->get_table('gear',array('retired'=>'0')); would return all the things in the gear table in the database where they were not retired (eg retired=0) and not deleted.
 
@@ -26,14 +25,6 @@ class u_model extends CI_Model {
 		$this->db->where($array); //Apply the conditions specified.
 		$query=$this->db->get();
 		return $query->result_array();
-	}
-
-	public function db_backup()
-	{
-		   $this->load->dbutil();   
-		   $backup =& $this->dbutil->backup();  
-		   $this->load->helper('file');
-		   write_file('your_file_path/your_DB.zip', $backup); 
 	}
 
 	public function get_cat(){

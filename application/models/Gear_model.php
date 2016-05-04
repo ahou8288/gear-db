@@ -140,13 +140,13 @@ class gear_model extends CI_Model {
 		return $query->row_array();
 	}
 
-	public function save_new_asset($data){
+	public function save_new_gear($data){
 		// This function adds new data to the database
 		// dbg($data);
 		$this->db->insert('gear',$data);
 	}
 
-	public function edit_asset($data, $id){
+	public function edit_gear($data, $id){
 		// This function changes the entry in the database with a specific id.
 		$this->db->where('ID',$id);
 		$this->db->set($data);
