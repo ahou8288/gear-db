@@ -1,7 +1,10 @@
 Todo:
-When viewing the borrow tables have one line for each borrow_group_id with multiple items show at once.
+**Only show stuff that happened recently /sort borrow or return_table tables by date by default
+check that every function in the models acutally gets called
 
 Finished:
+--category in borrow/view
+--When viewing the borrow tables have one line for each borrow_group_id with multiple items show at once.
 --Change code to handle changes to fields in a uniform way (all gear tables from one fields list if possible)
 --Add an overdue field to borrow tables
 --Connvert all tables into one table with buttons for categories
@@ -30,7 +33,6 @@ Finished:
 --Radio buttons already selected when editing
 
 Features for later:
-**Only show stuff that happened recently /sort tables by date by default
 **Email system (email people who have overdue gear from the website itself)
 **Help pages
 **Item History and person history

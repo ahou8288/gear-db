@@ -180,6 +180,7 @@ class borrow extends CI_Controller {
 			'date_return'=>'',
 			'returned'=>'',
 			'overdue'=>'',
+			'cat'=>'',
 			);
 		foreach ($group_info as $item){
 
@@ -187,6 +188,7 @@ class borrow extends CI_Controller {
 				if ($field == 'gear_name' ||
 					$field == 'date_return' ||
 					$field == 'returned' ||
+					$field == 'cat' ||
 					$field == 'overdue'){
 					$grouped_info[$field]=$grouped_info[$field].'<div>'.$value.'</div>';
 				} else {

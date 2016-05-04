@@ -50,7 +50,7 @@ var ViewModel = function(data){
 							var val = $.fn.dataTable.util.escapeRegex(
 								$(this).val()
 							);
-	 
+
 							column
 								.search( val ? val : '', true, false )
 								.draw();
@@ -103,7 +103,7 @@ var RecordViewModel = function(data){
 function process_value(field,val){
 	if (val.search('<div>')!=-1){
 		var return_str='';
-		// Split out keywork
+		// Split out keyword
 		// return <div>+process_value(keyword)+</div> for each keyword
 		for (var ind1 in val.split('<div>')){
 			var temp_split1=val.split('<div>')[ind1]

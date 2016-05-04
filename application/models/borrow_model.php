@@ -8,7 +8,7 @@ class borrow_model extends CI_Model {
 		$this->load->database();
 	}
 	
-	function get_fields($returned=TRUE,$deposit=TRUE,$comment=TRUE,$overdue_display=TRUE){
+	function get_fields($returned=TRUE,$deposit=TRUE,$comment=TRUE,$overdue_display=TRUE,$category_display=TRUE){
 		$query = $this->db->query('
 			SHOW FIELDS
 			FROM borrow');
@@ -61,6 +61,9 @@ class borrow_model extends CI_Model {
 		if ($overdue_display) array_push($output, array(
 			'name'=>'overdue',
 			'display'=>'Overdue'));
+		if ($category_display) array_push($output, array(
+			'name'=>'cat',
+			'display'=>'Category'));
 		// dbg($output);
 		return $output;
 	}
@@ -93,8 +96,9 @@ class borrow_model extends CI_Model {
 	{
 		// this function is used to collect data to show in the borrow tables
 
-		$this->db->select('borrow.*, gear.name as gear_name, people.name'); //Chose which fields to display
+		$this->db->select('borrow.*, gear.name as gear_name, people.name, categories.name as cat'); //Chose which fields to display
 		$this->db->join('gear','gear.id = borrow.gear_id'); //Link the gear and borrow tables on gear.id
+		$this->db->join('categories','gear.type = categories.id'); //Link the gear and borrow tables on gear.id
 		$this->db->join('people','people.id = borrow.person_id'); //Link the borrow and people tables on people.id
 		
 		if ($conditions){ //Allow the function call to specify conditions
