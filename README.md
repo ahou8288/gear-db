@@ -12,3 +12,7 @@ It was built with the idea that it could act as a way to manage the hire of gear
 * KnockoutJS
 * Datatables
 * SQL
+
+## Screenshot
+
+![screenshot](website.png)
